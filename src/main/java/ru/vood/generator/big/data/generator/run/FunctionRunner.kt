@@ -18,10 +18,7 @@ class FunctionRunner(
             Score(cnt.toString(),{ "crm_${it.hashCode()}" },{ "inn_${it.hashCode()}" }
             )
         }
-
         filePutter.toFile(scoreList, ScoreMapGenerator())
-
         println(scoreList[1])
-
     }
 }
