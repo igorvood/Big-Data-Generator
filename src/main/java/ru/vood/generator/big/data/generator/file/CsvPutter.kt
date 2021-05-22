@@ -26,8 +26,7 @@ class CsvPutter : FilePutter {
                         it.value
                     }
                     .forEach { data ->
-                        val data = header.map { col -> data[col].toString() }
-                                .joinToString(";")
+                        val data = header.joinToString(";") { col -> data[col].toString() }
                         out.write(data + "\n")
                     }
         }
