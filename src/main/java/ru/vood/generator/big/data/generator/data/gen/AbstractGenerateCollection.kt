@@ -1,7 +1,6 @@
-package ru.vood.generator.big.data.generator.data.gen.score
+package ru.vood.generator.big.data.generator.data.gen
 
 import org.springframework.stereotype.Service
-import ru.vood.generator.big.data.generator.data.gen.FunctionGenerateCollection
 
 @Service
 class AbstractGenerateCollection : FunctionGenerateCollection {

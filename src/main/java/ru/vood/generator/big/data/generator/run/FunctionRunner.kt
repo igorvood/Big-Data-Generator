@@ -3,10 +3,9 @@ package ru.vood.generator.big.data.generator.run
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Service
 import ru.vood.generator.big.data.generator.data.gen.NewFilePutter
-import ru.vood.generator.big.data.generator.data.gen.score.AbstractGenerateCollection
+import ru.vood.generator.big.data.generator.data.gen.AbstractGenerateCollection
 import ru.vood.generator.big.data.generator.data.gen.score.Score
 import ru.vood.generator.big.data.generator.data.gen.score.ScoreMapGenerator
-import ru.vood.generator.big.data.generator.file.FilePutter
 
 @Service
 class FunctionRunner(
@@ -15,14 +14,14 @@ class FunctionRunner(
 ) : CommandLineRunner {
 
     override fun run(vararg args: String?) {
-        val scoreList = generateCollection.genList(100_000, 200_000) {cnt->
+        val scoreList = generateCollection.genList(11_000_000, 12_200_000) {cnt->
             Score(cnt.toString(),{ "crm_${it.hashCode()}" },{ "inn_${it.hashCode()}" }
             )
         }
 
         filePutter.toFile(scoreList, ScoreMapGenerator())
 
-        println(scoreList)
+        println(scoreList[1])
 
     }
 }
