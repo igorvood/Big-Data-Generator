@@ -1,5 +1,5 @@
 package ru.vood.generator.big.data.generator.data.gen
 
-interface DataInterface {
+interface MetaDataInterface {
     fun headers(): Set<String>
 }
