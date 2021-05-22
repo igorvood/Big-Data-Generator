@@ -19,7 +19,7 @@ class Runner(
 
     override fun run(vararg args: String) {
         logger.info("Run")
-        val genSet = generateCollection.genSet(200, 300, scoreGen)
+        val genSet = generateCollection.genSet(299_000, 300_000, scoreGen)
         logger.info("End generating")
         filePutter.toFile(genSet.toList())
         logger.info("End writing Score")
