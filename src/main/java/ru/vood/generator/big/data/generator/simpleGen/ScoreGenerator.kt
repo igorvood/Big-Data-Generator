@@ -15,8 +15,7 @@ class ScoreGenerator(
 
     override fun gen(): Score {
         val cluSet = generateCollection.genSet(1, 10_000, cluGen)
-
-        return Score(strGen.gen(), strGen.gen(), strGen.gen(), cluSet)
-
+        val score = Score(strGen.gen(), strGen.gen(), strGen.gen(), cluSet)
+        return score
     }
 }
