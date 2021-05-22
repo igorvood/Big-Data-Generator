@@ -7,6 +7,6 @@ import ru.vood.generator.big.data.generator.data.Clu
 class CluGenerator(private val strGen: GeneratorData<String>) : GeneratorData<Clu> {
 
     override fun gen(): Clu {
-       return Clu(strGen.gen())
+       return Clu(strGen.gen(),strGen.gen())
     }
 }

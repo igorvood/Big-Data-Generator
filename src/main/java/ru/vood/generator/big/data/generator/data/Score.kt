@@ -15,7 +15,7 @@ data class Score(
 
     override fun data(): Map<String, Any> {
         return mapOf("id" to id,
-                "crmId" to inn,
-                "inn" to clus)
+                "crmId" to crmId,
+                "inn" to inn)
     }
 }
