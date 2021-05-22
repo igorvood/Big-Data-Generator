@@ -5,4 +5,17 @@ data class Score(
         val crmId: String,
         val inn: String,
         val clus: Set<Clu>
-)
+) : MetaGetter<Score> {
+
+    override fun header(): Set<String> {
+        return setOf("id",
+                "crmId",
+                "inn")
+    }
+
+    override fun data(): Map<String, Any> {
+        return mapOf("id" to id,
+                "crmId" to inn,
+                "inn" to clus)
+    }
+}
