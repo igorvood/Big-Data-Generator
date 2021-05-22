@@ -16,7 +16,7 @@ class FunctionRunner(
 
     override fun run(vararg args: String?) {
         val scoreList = generateCollection.genList(100_000, 200_000) {cnt->
-            Score(cnt.toString(),{ "${it}_crm" },{ "${it}_inn" }
+            Score(cnt.toString(),{ "crm_${it.hashCode()}" },{ "inn_${it.hashCode()}" }
             )
         }
 
