@@ -7,7 +7,7 @@ import ru.vood.generator.big.data.generator.data.gen.AbstractGenerateCollection
 import ru.vood.generator.big.data.generator.data.gen.score.Score
 import ru.vood.generator.big.data.generator.data.gen.score.ScoreMapGenerator
 
-@Service
+//@Service
 class FunctionRunner(
         private val generateCollection: AbstractGenerateCollection,
         private val filePutter: NewFilePutter
@@ -19,6 +19,6 @@ class FunctionRunner(
             )
         }
         filePutter.toFile(scoreList, ScoreMapGenerator())
-        println(scoreList[1])
+
     }
 }
