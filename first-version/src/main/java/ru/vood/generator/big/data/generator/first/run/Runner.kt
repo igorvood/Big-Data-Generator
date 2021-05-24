@@ -1,13 +1,14 @@
-package ru.vood.generator.big.data.generator.run
+package ru.vood.generator.big.data.generator.first.run
 
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
-import ru.vood.generator.big.data.generator.collection.GenerateCollection
-import ru.vood.generator.big.data.generator.data.Score
-import ru.vood.generator.big.data.generator.file.FilePutter
-import ru.vood.generator.big.data.generator.simpleGen.GeneratorData
+import org.springframework.stereotype.Service
+import ru.vood.generator.big.data.generator.first.collection.GenerateCollection
+import ru.vood.generator.big.data.generator.first.dto.Score
+import ru.vood.generator.big.data.generator.first.file.FilePutter
+import ru.vood.generator.big.data.generator.first.gen.GeneratorData
 
-//@Service
+@Service
 class Runner(
         private val scoreGen: GeneratorData<Score>,
         private val generateCollection: GenerateCollection,
@@ -18,7 +19,7 @@ class Runner(
 
     override fun run(vararg args: String) {
         logger.info("Run")
-        val genSet = generateCollection.genSet(299_000, 300_000, scoreGen)
+        val genSet = generateCollection.genSet(299, 300, scoreGen)
         logger.info("End generating")
         filePutter.toFile(genSet.toList())
         logger.info("End writing Score")
