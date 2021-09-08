@@ -49,7 +49,7 @@ class RunnerService(
                 }
         }
         val between1 = Duration.between(now, LocalDateTime.now())
-        log.info("finish $cnt score : per score ${between1.seconds.toDouble() / cnt.toDouble()} sec")
+        log.info("total $cnt score, time ${between1.seconds} seconds: per score ${between1.seconds.toDouble() / cnt.toDouble()} sec")
 
     }
 }
