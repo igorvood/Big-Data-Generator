@@ -39,7 +39,7 @@ class RunnerService(
             IntRange(1, cnt)
                 .forEach {
                     if (it % 1000 == 0) {
-                        val sec: Double = (LocalDateTime.now().second - now.second).toDouble()
+                        val sec: Double = (LocalDateTime.now().second.toDouble() - now.second.toDouble())
                         log.info("All ready put $it time ${sec / it.toDouble()} sec per score")
                     }
                     val score =
