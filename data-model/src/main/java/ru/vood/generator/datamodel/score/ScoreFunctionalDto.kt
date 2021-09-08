@@ -108,7 +108,7 @@ data class ScoreFunctionalDto(
     val crmTopGSZId: String by lazy { id }
     val crmGSZId: String by lazy { id }
 
-    val clu: Set<CluFunctionalDto> by lazy { IntRange(1, 2).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet() }
+    val clu: Set<CluFunctionalDto> by lazy { IntRange(1, 20).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet() }
 
     companion object {
 

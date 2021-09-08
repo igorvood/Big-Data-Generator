@@ -7,6 +7,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import ru.vood.generator.datamodel.score.ScoreFunctionalDto
+import java.io.File
 import java.time.LocalDateTime
 
 @Service
@@ -26,12 +27,28 @@ class RunnerService(
 
     override fun run(vararg args: String?) {
         val now: LocalDateTime = LocalDateTime.now()
-        IntRange(1, cnt).toList().parallelStream()
+        /*IntRange(1, cnt).toList().parallelStream()
             .forEach {
                 val forObject =
                     restTemplate.getForObject("http://$host/score/$it", ScoreFunctionalDto::class.java)
                 log.info(forObject)
-            }
+            }*/
+
+        File("score.csv").bufferedWriter().use { out ->
+//            out.write(headerStr + "\n")
+            IntRange(1, cnt)
+                .map {
+                    if (it % 100 == 0)
+                        log.info("All ready put $it")
+                    it
+                }
+                .forEach {
+                    val score =
+                        restTemplate.getForObject("http://$host/score/$it", ScoreFunctionalDto::class.java)
+                    out.write(score.toString() + "\n")
+                }
+        }
+
         val sec: Double = (LocalDateTime.now().nano - now.nano).toDouble() / 1000000000
         log.info("per score ${sec / cnt.toDouble()} sec")
 
