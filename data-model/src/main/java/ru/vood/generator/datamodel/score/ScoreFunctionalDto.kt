@@ -2,11 +2,9 @@ package ru.vood.generator.datamodel.score
 
 import ru.vood.generator.datamodel.clu.CluFunctionalDto
 
-
 class ScoreFunctionalDto(
     val id: String,
-
-    ) {
+) {
 
     /*  val verId: (String) -> String = { it }
       val crmId: (String) -> String = { it }
