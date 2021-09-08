@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import ru.vood.generator.datamodel.score.ScoreFunctionalDto
 import ru.vood.generator.forth.prop.GenerationProperties
+import java.time.LocalDateTime
+import java.util.*
 
 @Service
 class RunnerService(
@@ -25,6 +27,7 @@ class RunnerService(
     private val restTemplate: RestTemplate by lazy { restTemplateBuilder.build() }
 
     override fun run(vararg args: String?) {
+        val   now: LocalDateTime = LocalDateTime.now()
         IntRange(1, cnt).toList().parallelStream()
             .forEach {
                 val forObject =
@@ -32,6 +35,9 @@ class RunnerService(
                 log.info(forObject)
 
             }
+
+        val sec : Long = (LocalDateTime.now().second - now.second).toLong()
+        log.info("per score ${sec/cnt.toLong()}")
 
     }
 }
