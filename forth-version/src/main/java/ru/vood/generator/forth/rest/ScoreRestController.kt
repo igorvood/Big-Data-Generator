@@ -16,8 +16,13 @@ class ScoreRestController : EntityRestControllerService<ScoreFunctionalDto> {
     override fun readEntity(@PathVariable entityId: String): ScoreFunctionalDto {
         log.info("entityId => $entityId")
         val scoreFunctionalDto = ScoreFunctionalDto(entityId)
-        val map = scoreFunctionalDto.map
+        val map: Map<String, Any?> = scoreFunctionalDto.map
         return scoreFunctionalDto
+    }
+
+    @GetMapping(value = ["/scoreMap/{entityId}"])
+    override fun readEntityByMap(entityId: String): Map<String, Any?> {
+       return ScoreFunctionalDto(entityId).map
     }
 
     @GetMapping(value = ["/hello"])

@@ -59,7 +59,7 @@ data class ScoreFunctionalDto(
     @Transient
     private val genStr = ValueString(id)
 
-    val map: Map<String, Any> by ValueMap()
+    val map: Map<String, Any?> by ValueMap()
 
     val verId: String by genStr
     val crmId: String by genStr

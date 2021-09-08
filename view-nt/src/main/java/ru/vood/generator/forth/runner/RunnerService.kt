@@ -6,7 +6,6 @@ import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
-import ru.vood.generator.datamodel.score.ScoreFunctionalDto
 import java.io.File
 import java.time.Duration
 import java.time.LocalDateTime
@@ -43,7 +42,8 @@ class RunnerService(
                         log.info("All ready put $it time ${between1.seconds / it.toDouble()} sec per score")
                     }
                     val score =
-                        restTemplate.getForObject("http://$host/score/$it", ScoreFunctionalDto::class.java)
+//                        restTemplate.getForObject("http://$host/score/$it", ScoreFunctionalDto::class.java)
+                        restTemplate.getForObject("http://$host/score/$it", String::class.java)
                     out.write(score.toString() + "\n")
                 }
         }
