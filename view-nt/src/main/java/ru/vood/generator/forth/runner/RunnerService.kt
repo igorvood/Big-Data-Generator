@@ -43,7 +43,7 @@ class RunnerService(
                     }
                     val score =
 //                        restTemplate.getForObject("http://$host/score/$it", ScoreFunctionalDto::class.java)
-                        restTemplate.getForObject("http://$host/score/$it", String::class.java)
+//                        restTemplate.getForObject("http://$host/score/$it", String::class.java)
                     restTemplate.getForObject("http://$host/scoreMap/$it", String::class.java)
                     out.write(score.toString() + "\n")
                 }
