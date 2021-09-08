@@ -10,7 +10,6 @@ import ru.vood.generator.datamodel.score.ScoreFunctionalDto
 import java.io.File
 import java.time.Duration
 import java.time.LocalDateTime
-import java.time.Period
 
 @Service
 class RunnerService(
@@ -42,7 +41,7 @@ class RunnerService(
                 .forEach {
                     if (it % 1000 == 0) {
                         val sec: Double = (LocalDateTime.now().second.toDouble() - now.second.toDouble())
-                        val between1 = Duration.between(LocalDateTime.now(), now)
+                        val between1 = Duration.between(now, LocalDateTime.now())
                         log.info("All ready put $it time ${between1.seconds / it.toDouble()} sec per score")
                     }
                     val score =
@@ -50,7 +49,7 @@ class RunnerService(
                     out.write(score.toString() + "\n")
                 }
         }
-        val between1 = Duration.between(LocalDateTime.now(), now)
+        val between1 = Duration.between(now, LocalDateTime.now())
         between1.seconds
 //        val sec: Double =LocalDateTime.now().minus(now.te)
         log.info("finish: per score ${between1.seconds / cnt.toDouble()} sec")
