@@ -1,7 +1,7 @@
 package ru.vood.generator.datamodel.clu
 
 
-class CluFunctionalDto(
+data class CluFunctionalDto(
     val scoreId: String,
     val id: String,
 

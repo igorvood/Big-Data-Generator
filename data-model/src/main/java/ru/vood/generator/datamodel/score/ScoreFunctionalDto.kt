@@ -2,7 +2,7 @@ package ru.vood.generator.datamodel.score
 
 import ru.vood.generator.datamodel.clu.CluFunctionalDto
 
-class ScoreFunctionalDto(
+data class ScoreFunctionalDto(
     val id: String,
 ) {
 
@@ -60,7 +60,7 @@ class ScoreFunctionalDto(
 
     val verId: String by genStr
     val crmId: String by genStr
-   /* val orgId: String by lazy { id }
+    val orgId: String by lazy { id }
     val inn: String by lazy { id }
     val eksId: String by lazy { id }
     val ucId: String by lazy { id }
@@ -106,7 +106,7 @@ class ScoreFunctionalDto(
     val bSegment: String by lazy { id }
     val industry: String by lazy { id }
     val crmTopGSZId: String by lazy { id }
-    val crmGSZId: String by lazy { id }*/
+    val crmGSZId: String by lazy { id }
 
     val clu: Set<CluFunctionalDto> by lazy { IntRange(1, 2).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet() }
 
