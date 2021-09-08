@@ -52,7 +52,7 @@ class RunnerService(
         }
 
         val sec: Double = (LocalDateTime.now().nano - now.nano).toDouble() / 1000000000
-        log.info("per score ${sec / cnt.toDouble()} sec")
+        log.info("finish: per score ${sec / cnt.toDouble()} sec")
 
     }
 }
