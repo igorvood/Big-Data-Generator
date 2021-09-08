@@ -34,20 +34,26 @@ class RunnerService(
                 log.info(forObject)
             }*/
 
-        File("score.csv").bufferedWriter().use { out ->
-            IntRange(1, cnt)
-                .forEach {
-                    if (it % 100 == 0) {
-                        val between1 = Duration.between(now, LocalDateTime.now())
-                        log.info("All ready put $it time ${between1.seconds / it.toDouble()} sec per score")
-                    }
-                    val score =
+        IntRange(1, 8).toList().parallelStream()
+            .forEach {thread ->
+                File("${thread}_score.csv").bufferedWriter()
+                    .use { out ->
+                        IntRange(1, cnt)
+                            .forEach {
+                                if (it % 100 == 0) {
+                                    val between1 = Duration.between(now, LocalDateTime.now())
+                                    log.info("All ready put $it time ${between1.seconds / it.toDouble()} sec per score")
+                                }
+                                val score =
 //                        restTemplate.getForObject("http://$host/score/$it", ScoreFunctionalDto::class.java)
 //                        restTemplate.getForObject("http://$host/score/$it", String::class.java)
-                    restTemplate.getForObject("http://$host/scoreMap/$it", String::class.java)
-                    out.write(score.toString() + "\n")
-                }
-        }
+                                    restTemplate.getForObject("http://$host/scoreMap/$it", String::class.java)
+                                out.write(score.toString() + "\n")
+                            }
+                    }
+            }
+
+
         val between1 = Duration.between(now, LocalDateTime.now())
         log.info("total $cnt score, time ${between1.seconds} seconds: per score ${between1.seconds.toDouble() / cnt.toDouble()} sec")
 
