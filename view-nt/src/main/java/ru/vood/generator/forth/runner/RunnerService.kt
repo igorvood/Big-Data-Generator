@@ -38,8 +38,10 @@ class RunnerService(
 //            out.write(headerStr + "\n")
             IntRange(1, cnt)
                 .map {
-                    if (it % 100 == 0)
-                        log.info("All ready put $it")
+                    if (it % 100 == 0) {
+                        val sec: Double = (LocalDateTime.now().nano - now.nano).toDouble() / 1000000000
+                        log.info("All ready put $it time ${sec / it.toDouble()} sec per score")
+                    }
                     it
                 }
                 .forEach {
