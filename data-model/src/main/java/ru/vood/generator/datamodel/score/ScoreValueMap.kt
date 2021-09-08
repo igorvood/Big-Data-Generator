@@ -4,7 +4,7 @@ import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 import kotlin.reflect.KVisibility
 
-class ValueMap : ReadOnlyProperty<ScoreFunctionalDto, Map<String, Any?>> {
+class ScoreValueMap : ReadOnlyProperty<ScoreFunctionalDto, Map<String, Any?>> {
 
     override fun getValue(thisRef: ScoreFunctionalDto, property: KProperty<*>): Map<String, Any?> {
         val fields = ScoreFunctionalDto.fields

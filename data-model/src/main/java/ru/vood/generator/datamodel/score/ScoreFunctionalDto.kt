@@ -59,68 +59,73 @@ data class ScoreFunctionalDto(
     @Transient
     private val genStr = ValueString(id)
 
-    val map: Map<String, Any?> by ValueMap()
+    val map: Map<String, Any?> by ScoreValueMap()
 
     val verId: String by genStr
     val crmId: String by genStr
-    val orgId: String by lazy { id }
-    val inn: String by lazy { id }
-    val eksId: String by lazy { id }
-    val ucId: String by lazy { id }
-    val mgId: String by lazy { id }
-    val ogrn: String by lazy { id }
-    val kpp: String by lazy { id }
-    val okpo: String by lazy { id }
-    val fullName: String by lazy { id }
-    val shortName: String by lazy { id }
-    val opf: String by lazy { id }
-    val regDate: String by lazy { id }
-    val regAddressPostalCode: String by lazy { id }
-    val regAddressRegionName: String by lazy { id }
-    val regAddressDistrictName: String by lazy { id }
-    val regAddressCityName: String by lazy { id }
-    val regAddressVillageName: String by lazy { id }
-    val regAddressSVillageTypeName: String by lazy { id }
-    val regAddressStreetName: String by lazy { id }
-    val regAddressSStreetTypeName: String by lazy { id }
-    val regAddressHouseNumber: String by lazy { id }
-    val regAddressBuildingNumber: String by lazy { id }
-    val regAddressBlockNumber: String by lazy { id }
-    val regAddressFlatNumber: String by lazy { id }
+    val orgId: String by genStr
+    val inn: String by genStr
+    val eksId: String by genStr
+    val ucId: String by genStr
+    val mgId: String by genStr
+    val ogrn: String by genStr
+    val kpp: String by genStr
+    val okpo: String by genStr
+    val fullName: String by genStr
+    val shortName: String by genStr
+    val opf: String by genStr
+    val regDate: String by genStr
+    val regAddressPostalCode: String by genStr
+    val regAddressRegionName: String by genStr
+    val regAddressDistrictName: String by genStr
+    val regAddressCityName: String by genStr
+    val regAddressVillageName: String by genStr
+    val regAddressSVillageTypeName: String by genStr
+    val regAddressStreetName: String by genStr
+    val regAddressSStreetTypeName: String by genStr
+    val regAddressHouseNumber: String by genStr
+    val regAddressBuildingNumber: String by genStr
+    val regAddressBlockNumber: String by genStr
+    val regAddressFlatNumber: String by genStr
 
-    val oPhoneNumber: String by lazy { id }
-    val mPhoneNumber: String by lazy { id }
-    val email: String by lazy { id }
+    val oPhoneNumber: String by genStr
+    val mPhoneNumber: String by genStr
+    val email: String by genStr
 
-    val fAddressPostalCode: String by lazy { id }
-    val fAddressRegionName: String by lazy { id }
-    val fAddressDistrictName: String by lazy { id }
-    val fAddressCityName: String by lazy { id }
-    val fAddressVillageName: String by lazy { id }
-    val fAddressSVillageTypeName: String by lazy { id }
-    val fAddressStreetName: String by lazy { id }
-    val fAddressSStreetTypeName: String by lazy { id }
+    val fAddressPostalCode: String by genStr
+    val fAddressRegionName: String by genStr
+    val fAddressDistrictName: String by genStr
+    val fAddressCityName: String by genStr
+    val fAddressVillageName: String by genStr
+    val fAddressSVillageTypeName: String by genStr
+    val fAddressStreetName: String by genStr
+    val fAddressSStreetTypeName: String by genStr
     val fAddressHouseNumber: Int by lazy { id.hashCode() }
     val fAddressBuildingNumber: Int by lazy { id.hashCode() }
-    val fAddressBlockNumber: String by lazy { id }
-    val fAddressFlatNumber: String by lazy { id }
+    val fAddressBlockNumber: String by genStr
+    val fAddressFlatNumber: String by genStr
 
-    val fax: String by lazy { id }
-    val bSegment: String by lazy { id }
-    val industry: String by lazy { id }
-    val crmTopGSZId: String by lazy { id }
-    val crmGSZId: String by lazy { id }
+    val fax: String by genStr
+    val bSegment: String by genStr
+    val industry: String by genStr
+    val crmTopGSZId: String by genStr
+    val crmGSZId: String by genStr
 
-    val clu: Set<CluFunctionalDto> by lazy { IntRange(1, 20).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet() }
+    val clu: Set<CluFunctionalDto> by lazy { IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet() }
+    val clu1: Set<CluFunctionalDto> by lazy { IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet() }
+    val clu2: Set<CluFunctionalDto> by lazy { IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet() }
+    val clu3: Set<CluFunctionalDto> by lazy { IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet() }
+    val clu4: Set<CluFunctionalDto> by lazy { IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet() }
+    val clu5: Set<CluFunctionalDto> by lazy { IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet() }
+    val clu6: Set<CluFunctionalDto> by lazy { IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet() }
+    val clu7: Set<CluFunctionalDto> by lazy { IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet() }
 
     companion object {
 
-        //        val SCORE_HEADERS = ScoreMeta.values().map { it.name }.toSet()
-        val fields: List<KCallable<*>> = ScoreFunctionalDto::class.members
+        val fields: Set<KCallable<*>> = ScoreFunctionalDto::class.members
             .map {
-//                println(it)
                 it
-            }
+            }.toSet()
     }
 
 //    override fun headers() = SCORE_HEADERS
