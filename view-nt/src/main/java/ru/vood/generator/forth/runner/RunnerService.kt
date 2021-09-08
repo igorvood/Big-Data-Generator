@@ -37,14 +37,11 @@ class RunnerService(
         File("score.csv").bufferedWriter().use { out ->
 //            out.write(headerStr + "\n")
             IntRange(1, cnt)
-                .map {
+                .forEach {
                     if (it % 100 == 0) {
                         val sec: Double = (LocalDateTime.now().nano - now.nano).toDouble() / 1000000000
                         log.info("All ready put $it time ${sec / it.toDouble()} sec per score")
                     }
-                    it
-                }
-                .forEach {
                     val score =
                         restTemplate.getForObject("http://$host/score/$it", ScoreFunctionalDto::class.java)
                     out.write(score.toString() + "\n")
