@@ -34,7 +34,7 @@ class RunnerService(
                     restTemplate.getForObject("http://$host/score/$it", ScoreFunctionalDto::class.java)
                 log.info(forObject)
             }
-        val sec : Long = (LocalDateTime.now().nano - now.nano).toLong()/1000
+        val sec : Long = (LocalDateTime.now().nano - now.nano).toLong()/1000000000
         log.info("per score ${sec/cnt.toLong()}")
 
     }
