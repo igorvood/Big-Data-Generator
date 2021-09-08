@@ -7,7 +7,6 @@ class ValueString(val id: String) : ReadOnlyProperty<ScoreFunctionalDto, String>
 
     override fun getValue(thisRef: ScoreFunctionalDto, property: KProperty<*>): String {
       return  this.id + property.name
-
     }
 }
 

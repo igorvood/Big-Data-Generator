@@ -1,6 +1,7 @@
 package ru.vood.generator.datamodel.score
 
 import ru.vood.generator.datamodel.clu.CluFunctionalDto
+import kotlin.reflect.KCallable
 
 data class ScoreFunctionalDto(
     val id: String,
@@ -58,6 +59,8 @@ data class ScoreFunctionalDto(
     @Transient
     private val genStr = ValueString(id)
 
+    val map: Map<String, Any> by ValueMap()
+
     val verId: String by genStr
     val crmId: String by genStr
     val orgId: String by lazy { id }
@@ -113,7 +116,7 @@ data class ScoreFunctionalDto(
     companion object {
 
         //        val SCORE_HEADERS = ScoreMeta.values().map { it.name }.toSet()
-        val q = ScoreFunctionalDto::class.members
+        val fields: List<KCallable<*>> = ScoreFunctionalDto::class.members
             .map {
 //                println(it)
                 it

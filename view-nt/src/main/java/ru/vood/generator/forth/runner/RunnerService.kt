@@ -36,11 +36,9 @@ class RunnerService(
             }*/
 
         File("score.csv").bufferedWriter().use { out ->
-//            out.write(headerStr + "\n")
             IntRange(1, cnt)
                 .forEach {
                     if (it % 100 == 0) {
-                        val sec: Double = (LocalDateTime.now().second.toDouble() - now.second.toDouble())
                         val between1 = Duration.between(now, LocalDateTime.now())
                         log.info("All ready put $it time ${between1.seconds / it.toDouble()} sec per score")
                     }
