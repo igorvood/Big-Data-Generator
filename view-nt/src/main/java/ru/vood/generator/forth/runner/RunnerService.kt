@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import ru.vood.generator.datamodel.score.ScoreFunctionalDto
 import java.io.File
+import java.time.Duration
 import java.time.LocalDateTime
+import java.time.Period
 
 @Service
 class RunnerService(
@@ -40,16 +42,18 @@ class RunnerService(
                 .forEach {
                     if (it % 1000 == 0) {
                         val sec: Double = (LocalDateTime.now().second.toDouble() - now.second.toDouble())
-                        log.info("All ready put $it time ${sec / it.toDouble()} sec per score")
+                        val between1 = Duration.between(LocalDateTime.now(), now)
+                        log.info("All ready put $it time ${between1.seconds / it.toDouble()} sec per score")
                     }
                     val score =
                         restTemplate.getForObject("http://$host/score/$it", ScoreFunctionalDto::class.java)
                     out.write(score.toString() + "\n")
                 }
         }
-
-        val sec: Double = (LocalDateTime.now().nano - now.nano).toDouble() / 1000000000
-        log.info("finish: per score ${sec / cnt.toDouble()} sec")
+        val between1 = Duration.between(LocalDateTime.now(), now)
+        between1.seconds
+//        val sec: Double =LocalDateTime.now().minus(now.te)
+        log.info("finish: per score ${between1.seconds / cnt.toDouble()} sec")
 
     }
 }
