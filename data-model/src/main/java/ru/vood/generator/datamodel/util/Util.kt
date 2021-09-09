@@ -8,7 +8,7 @@ fun <T> valueCalculate(
     fields: Set<KCallable<*>>,
     property: KProperty<*>,
     thisRef: T
-) = fields
+): Map<String, Any> = fields
     .asSequence()
     .filter { it.visibility != KVisibility.PRIVATE }
     .filter { it.name != property.name }
@@ -30,5 +30,6 @@ fun <T> valueCalculate(
         }
     }
     .filter { it.second != null }
+    .map { it.first to it.second!! }
     .toList()
     .toMap()

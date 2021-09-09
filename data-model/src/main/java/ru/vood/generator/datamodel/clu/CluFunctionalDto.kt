@@ -1,6 +1,7 @@
 package ru.vood.generator.datamodel.clu
 
 import ru.vood.generator.datamodel.score.ValueString
+import ru.vood.generator.datamodel.util.FieldMeta
 import kotlin.reflect.KCallable
 
 
@@ -12,7 +13,7 @@ data class CluFunctionalDto(
     @Transient
     private val genStr = ValueString(id)
 
-    val map: Map<String, Any?> by CluValueMap()
+    val map: Map<String, Any> by CluValueMap()
 
     val verId: String by genStr
     val verId1: String by genStr
@@ -43,6 +44,11 @@ data class CluFunctionalDto(
         val fields: Set<KCallable<*>> = CluFunctionalDto::class.members
             .map {
                 it
+            }.toSet()
+
+        val fieldsMeta = fields
+            .map {
+                FieldMeta(it.name, it.returnType)
             }.toSet()
     }
 }
