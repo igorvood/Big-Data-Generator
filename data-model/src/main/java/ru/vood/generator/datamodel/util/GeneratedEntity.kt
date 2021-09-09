@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-interface GeneratedEntity<T : MetaDataInterface> : MetaDataInterface {
+interface GeneratedEntity<in T : MetaDataInterface> : MetaDataInterface {
 
     fun objectInMap(): Map<String, Any>
 
@@ -39,6 +39,20 @@ interface GeneratedEntity<T : MetaDataInterface> : MetaDataInterface {
         value
     }
 
+    fun <IN, OUT> valueSetAny(
+        id: IN,
+        min: Int = 0,
+        max: Int = 0,
+        block: (IN, Int) -> OUT,
+    ): ReadOnlyProperty<T, Set<OUT>> =
+        ReadOnlyProperty { _, property ->
+            val i = (id.hashCode() + property.name.hashCode()) % (max - min)
+            IntRange(1, i)
+                .map { block(id, it) }
+                .toSet()
+        }
+
+
     fun objToMap(): ReadOnlyPropertyMap<T> =
         object : ReadOnlyPropertyMap<T> {
             override fun getValue(thisRef: T, property: KProperty<*>): Map<String, Any> {
@@ -49,6 +63,5 @@ interface GeneratedEntity<T : MetaDataInterface> : MetaDataInterface {
     private fun <IN, OUT> blockRunner(id: IN, block: ((IN) -> OUT)?, b: (IN) -> OUT) =
         if (block != null) block(id)
         else b(id)
-
 
 }

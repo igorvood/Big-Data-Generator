@@ -6,6 +6,6 @@ server:
   port: 7070
 
 gen:
-#  host: 172.17.1.248:9090
-  host: localhost:9090
+  host: 172.17.1.248:9090
+#  host: localhost:9090
   cnt: 10

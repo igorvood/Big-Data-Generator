@@ -8,12 +8,6 @@ import kotlin.reflect.KCallable
 data class ScoreFunctionalDto(
     val id: String,
 ) : GeneratedEntity<ScoreFunctionalDto> {
-//    @Transient
-//    private val genStr = ValueString(id)
-//    @Transient
-//    private val genNum = ValueNum(id)
-//    @Transient
-//    private val genBool = ValueBoolean(id)
 
     val objectInMap: Map<String, Any> by objToMap()
 
@@ -36,31 +30,10 @@ data class ScoreFunctionalDto(
     val nonCurAssets: Int by valueNum(id)
     val opkFlag: Int by valueNum(id)
 
+    val clu: CluFunctionalDto by valueAny(id) { CluFunctionalDto("${it}_SCORE") }
 
-    val clu: Set<CluFunctionalDto> by lazy {
-        IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet()
-    }
-    val clu1: Set<CluFunctionalDto> by lazy {
-        IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet()
-    }
-    val clu2: Set<CluFunctionalDto> by lazy {
-        IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet()
-    }
-    val clu3: Set<CluFunctionalDto> by lazy {
-        IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet()
-    }
-    val clu4: Set<CluFunctionalDto> by lazy {
-        IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet()
-    }
-    val clu5: Set<CluFunctionalDto> by lazy {
-        IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet()
-    }
-    val clu6: Set<CluFunctionalDto> by lazy {
-        IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet()
-    }
-    val clu7: Set<CluFunctionalDto> by lazy {
-        IntRange(1, 200).map { CluFunctionalDto("""${id}_$it""", it.toString()) }.toSet()
-    }
+    val clus: Set<CluFunctionalDto> by valueSetAny(id, 1, 20) { id, num -> CluFunctionalDto("""${id}_$num""") }
+
 
     override fun metaFields(): Set<KCallable<*>> = fields
 
@@ -74,6 +47,5 @@ data class ScoreFunctionalDto(
             }.toSet()
     }
 
-//    override fun headers() = SCORE_HEADERS
 }
 

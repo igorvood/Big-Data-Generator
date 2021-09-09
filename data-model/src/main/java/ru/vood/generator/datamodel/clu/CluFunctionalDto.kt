@@ -7,7 +7,6 @@ import kotlin.reflect.KCallable
 
 
 data class CluFunctionalDto(
-    val scoreId: String,
     val id: String,
 ) : GeneratedEntity<CluFunctionalDto> {
 
