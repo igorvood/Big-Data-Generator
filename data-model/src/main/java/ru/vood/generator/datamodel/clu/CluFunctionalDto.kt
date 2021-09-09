@@ -1,6 +1,6 @@
 package ru.vood.generator.datamodel.clu
 
-import ru.vood.generator.datamodel.score.ValueString
+import ru.vood.generator.datamodel.util.function.ValueString
 import ru.vood.generator.datamodel.util.FieldMeta
 import kotlin.reflect.KCallable
 

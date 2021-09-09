@@ -1,6 +1,7 @@
 package ru.vood.generator.datamodel.score
 
 import ru.vood.generator.datamodel.clu.CluFunctionalDto
+import ru.vood.generator.datamodel.util.function.ValueString
 import kotlin.reflect.KCallable
 
 data class ScoreFunctionalDto(
