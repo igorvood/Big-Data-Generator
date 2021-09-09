@@ -22,7 +22,7 @@ class ScoreRestController : EntityRestControllerService<ScoreFunctionalDto> {
     @GetMapping(value = ["/scoreMap/{entityId}"])
     override fun readEntityByMap(entityId: String): Map<String, Any?> {
         log.info("entityId => $entityId")
-        return ScoreFunctionalDto(entityId).map
+        return ScoreFunctionalDto(entityId).objectInMap
     }
 
     @GetMapping(value = ["/hello"])

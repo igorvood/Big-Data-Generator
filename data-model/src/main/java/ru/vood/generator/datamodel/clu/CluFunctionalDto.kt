@@ -1,43 +1,70 @@
 package ru.vood.generator.datamodel.clu
 
-import ru.vood.generator.datamodel.util.function.ValueString
 import ru.vood.generator.datamodel.util.FieldMeta
+import ru.vood.generator.datamodel.util.GeneratedEntity
+import java.time.LocalDateTime
 import kotlin.reflect.KCallable
 
 
 data class CluFunctionalDto(
     val scoreId: String,
     val id: String,
+) : GeneratedEntity<CluFunctionalDto> {
 
-    ) {
-    @Transient
-    private val genStr = ValueString(id)
+    val crmId: String by valueStr(id)
+    val orgId: String by valueStr(id)
+    val inn: String by valueStr(id)
+    val eksId: String by valueStr(id)
+    val ucId: String by valueStr(id)
+    val mgId: String by valueStr(id)
+    val ogrn: String by valueStr(id)
+    val kpp: String by valueStr(id)
+    val okpo: String by valueStr(id)
+    val fullName: String by valueStr(id)
+    val shortName: String by valueStr(id)
+    val opf: String by valueStr(id)
+    val regDate: LocalDateTime by valueTime(id)
+    val regAddressPostalCode: String by valueStr(id)
+    val regAddressRegionName: String by valueStr(id)
+    val regAddressDistrictName: String by valueStr(id)
+    val regAddressCityName: String by valueStr(id)
+    val regAddressVillageName: String by valueStr(id)
+    val regAddressSVillageTypeName: String by valueStr(id)
+    val regAddressStreetName: String by valueStr(id)
+    val regAddressSStreetTypeName: String by valueStr(id)
+    val regAddressHouseNumber: String by valueStr(id)
+    val regAddressBuildingNumber: String by valueStr(id)
+    val regAddressBlockNumber: String by valueStr(id)
+    val regAddressFlatNumber: String by valueStr(id)
 
-    val map: Map<String, Any> by CluValueMap()
+    val oPhoneNumber: String by valueStr(id)
+    val mPhoneNumber: String by valueStr(id)
+    val email: String by valueStr(id)
 
-    val verId: String by genStr
-    val verId1: String by genStr
-    val verId10: String by genStr
-    val verId11: String by genStr
-    val verId12: String by genStr
-    val verId13: String by genStr
-    val verId14: String by genStr
-    val verId15: String by genStr
-    val verId16: String by genStr
-    val verId17: String by genStr
-    val verId18: String by genStr
-    val verId19: String by genStr
-    val verId2: String by genStr
-    val verId20: String by genStr
-    val verId21: String by genStr
-    val verId22: String by genStr
-    val verId23: String by genStr
-    val verId24: String by genStr
-    val verId25: String by genStr
-    val verId26: String by genStr
-    val verId27: String by genStr
-    val verId28: String by genStr
-    val verId29: String by genStr
+    val fAddressPostalCode: String by valueStr(id)
+    val fAddressRegionName: String by valueStr(id)
+    val fAddressDistrictName: String by valueStr(id)
+    val fAddressCityName: String by valueStr(id)
+    val fAddressVillageName: String by valueStr(id)
+    val fAddressSVillageTypeName: String by valueStr(id)
+    val fAddressStreetName: String by valueStr(id)
+    val fAddressSStreetTypeName: String by valueStr(id)
+    val fAddressHouseNumber: String by valueStr(id)
+    val fAddressBuildingNumber: String by valueStr(id)
+    val fAddressBlockNumber: String by valueStr(id)
+    val fAddressFlatNumber: String by valueStr(id)
+
+    val fax: String by valueStr(id)
+    val bSegment: String by valueStr(id)
+    val industry: String by valueStr(id)
+    val crmTopGSZId: String by valueStr(id)
+    val crmGSZId: String by valueStr(id)
+
+    val objectInMap: Map<String, Any> by objToMap()
+
+    override fun objectInMap(): Map<String, Any> = objectInMap
+
+    override fun metaFields(): Set<KCallable<*>> = fields
 
     companion object {
 
@@ -46,9 +73,9 @@ data class CluFunctionalDto(
                 it
             }.toSet()
 
-        val fieldsMeta = fields
+        val fieldsMeta: Map<String, FieldMeta> = fields
             .map {
-                FieldMeta(it.name, it.returnType)
-            }.toSet()
+                it.name to FieldMeta(it.name, it.returnType)
+            }.toMap()
     }
 }
