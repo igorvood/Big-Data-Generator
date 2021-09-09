@@ -1,5 +1,6 @@
 package ru.vood.generator.datamodel
 
+import ru.vood.generator.datamodel.clu.CluFunctionalDto
 import kotlin.reflect.KCallable
 import kotlin.reflect.KProperty
 import kotlin.reflect.KVisibility
@@ -34,4 +35,10 @@ fun <T> valueCalculate(
         .map { it.first to it.second!! }
         .toList()
         .toMap()
+}
+
+inline fun <reified T> dataFields(): Set<KCallable<*>> {
+    return T::class.members
+        .filterIsInstance<KProperty<*>>()
+        .toSet()
 }

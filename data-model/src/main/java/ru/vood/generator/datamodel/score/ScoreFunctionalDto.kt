@@ -1,6 +1,7 @@
 package ru.vood.generator.datamodel.score
 
 import ru.vood.generator.datamodel.clu.CluFunctionalDto
+import ru.vood.generator.datamodel.dataFields
 import ru.vood.generator.datamodel.util.GeneratedEntity
 import java.time.LocalDateTime
 import kotlin.reflect.KCallable
@@ -42,12 +43,7 @@ data class ScoreFunctionalDto(
 
     companion object {
 
-        val fields: Set<KCallable<*>> by lazy {
-            val toSet = ScoreFunctionalDto::class.members
-                .filterIsInstance<KProperty<*>>()
-                .toSet()
-            toSet
-        }
+        val fields: Set<KCallable<*>> =  dataFields<ScoreFunctionalDto>()
 
 
     }
