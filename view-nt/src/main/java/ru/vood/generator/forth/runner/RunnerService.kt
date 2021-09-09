@@ -34,7 +34,7 @@ class RunnerService(
                 log.info(forObject)
             }*/
         val threads = 10
-        cnt = 100000
+//        cnt = 100000
         val i = cnt / threads
 
         IntRange(1, threads).toList().parallelStream()
