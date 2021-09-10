@@ -6,4 +6,5 @@ interface MetaDataInterface {
 
     fun metaFields(): Set<KCallable<*>>
 
+    fun fieldsMetaMap(): Map<String, FieldMeta>
 }

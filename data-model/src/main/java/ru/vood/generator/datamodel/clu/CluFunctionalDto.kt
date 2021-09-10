@@ -64,14 +64,15 @@ data class CluFunctionalDto(
 
     override fun objectInMap(): Map<String, Any> = objectInMap
 
-    override fun metaFields(): Set<KCallable<*>> = fields
+    override fun metaFields(): Set<KCallable<*>> = fieldsMetaKotlin
+
+    override fun fieldsMetaMap(): Map<String, FieldMeta> = fieldsMetaMap
 
     companion object {
 
-        val fields: Set<KCallable<*>> = dataFields<CluFunctionalDto>()
+        val fieldsMetaKotlin: Set<KCallable<*>> = dataFields<CluFunctionalDto>()
 
-
-        val fieldsMeta: Map<String, FieldMeta> = fields
+        val fieldsMetaMap: Map<String, FieldMeta> = this.fieldsMetaKotlin
             .map {
                 it.name to FieldMeta(it.name, it.returnType)
             }.toMap()

@@ -1,6 +1,7 @@
 package ru.vood.generator.datamodel.score
 
 import ru.vood.generator.datamodel.clu.CluFunctionalDto
+import ru.vood.generator.datamodel.util.FieldMeta
 import ru.vood.generator.datamodel.util.GeneratedEntity
 import ru.vood.generator.datamodel.util.dataFields
 import java.time.LocalDateTime
@@ -36,14 +37,21 @@ data class ScoreFunctionalDto(
     val clus: Set<CluFunctionalDto> by valueSetAny(id, 1, 20) { id, num -> CluFunctionalDto("""${id}_$num""") }
 
 
-    override fun metaFields(): Set<KCallable<*>> = fields
+    override fun metaFields(): Set<KCallable<*>> = fieldsMetaKotlin
 
     override fun objectInMap(): Map<String, Any> = objectInMap
 
+    override fun fieldsMetaMap(): Map<String, FieldMeta> = fieldsMetaMap
+
     companion object {
 
-        val fields: Set<KCallable<*>> = dataFields<ScoreFunctionalDto>()
 
+        val fieldsMetaKotlin: Set<KCallable<*>> = dataFields<ScoreFunctionalDto>()
+
+        val fieldsMetaMap: Map<String, FieldMeta> = fieldsMetaKotlin
+            .map {
+                it.name to FieldMeta(it.name, it.returnType)
+            }.toMap()
 
     }
 
