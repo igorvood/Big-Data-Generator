@@ -1,6 +1,5 @@
 package ru.vood.generator.datamodel.util
 
-import ru.vood.generator.datamodel.valueCalculate
 import java.time.LocalDateTime
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
@@ -43,12 +42,12 @@ interface GeneratedEntity<in T : MetaDataInterface> : MetaDataInterface {
         id: IN,
         min: Int = 0,
         max: Int = 0,
-        block: (IN, Int) -> OUT,
+        factoryBlock: (IN, Int) -> OUT,
     ): ReadOnlyProperty<T, Set<OUT>> =
         ReadOnlyProperty { _, property ->
             val i = (id.hashCode() + property.name.hashCode()) % (max - min)
             IntRange(1, i)
-                .map { block(id, it) }
+                .map { factoryBlock(id, it) }
                 .toSet()
         }
 

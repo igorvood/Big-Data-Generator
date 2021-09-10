@@ -1,11 +1,10 @@
 package ru.vood.generator.datamodel.score
 
 import ru.vood.generator.datamodel.clu.CluFunctionalDto
-import ru.vood.generator.datamodel.dataFields
+import ru.vood.generator.datamodel.util.dataFields
 import ru.vood.generator.datamodel.util.GeneratedEntity
 import java.time.LocalDateTime
 import kotlin.reflect.KCallable
-import kotlin.reflect.KProperty
 
 data class ScoreFunctionalDto(
     val id: String,
@@ -43,7 +42,7 @@ data class ScoreFunctionalDto(
 
     companion object {
 
-        val fields: Set<KCallable<*>> =  dataFields<ScoreFunctionalDto>()
+        val fields: Set<KCallable<*>> = dataFields<ScoreFunctionalDto>()
 
 
     }

@@ -1,6 +1,6 @@
 package ru.vood.generator.datamodel.clu
 
-import ru.vood.generator.datamodel.dataFields
+import ru.vood.generator.datamodel.util.dataFields
 import ru.vood.generator.datamodel.util.FieldMeta
 import ru.vood.generator.datamodel.util.GeneratedEntity
 import java.time.LocalDateTime
