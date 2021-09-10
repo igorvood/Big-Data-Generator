@@ -114,6 +114,4 @@ internal class ScoreFunctionalDtoTest {
 
             )
     }
-
-
 }
