@@ -1,8 +1,6 @@
-package ru.vood.generator.forth.prop;
+package ru.vood.generator.forth.prop
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
-@ConfigurationProperties(prefix = "gen")
-public class GenerationProperties {
-    private String host;
+open class GenerationProperties {
+    var host: String = ""
+    var cnt: Int = 10
 }
