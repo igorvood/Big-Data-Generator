@@ -28,7 +28,7 @@ interface GeneratedEntity<in T : MetaDataInterface> : MetaDataInterface {
     fun <IN> valueTime(id: IN, block: ((IN) -> LocalDateTime)? = null) =
         ReadOnlyProperty<T, LocalDateTime> { _, property ->
             blockRunner(id, block) {
-                LocalDateTime.MIN.plusDays(
+                LocalDateTime.of(1970,1,1,12,12).plusSeconds(
                     it.hashCode().toLong() + property.name.hashCode().toLong()
                 )
             }
