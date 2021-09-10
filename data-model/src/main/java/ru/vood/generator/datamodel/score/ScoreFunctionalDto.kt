@@ -45,7 +45,6 @@ data class ScoreFunctionalDto(
 
     companion object {
 
-
         val fieldsMetaKotlin: Set<KCallable<*>> = dataFields<ScoreFunctionalDto>()
 
         val fieldsMetaMap: Map<String, FieldMeta> = fieldsMetaKotlin.associate {
