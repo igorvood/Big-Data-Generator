@@ -10,77 +10,87 @@ import ru.vood.generator.datamodel.util.FieldMeta
 
 internal class ScoreFunctionalDtoTest {
 
-    lateinit var scoreFunctionalDtoTest: ScoreFunctionalDto
+    lateinit var score: ScoreFunctionalDto
 
     @BeforeEach
     fun setUp() {
-        scoreFunctionalDtoTest = spyk(ScoreFunctionalDto("5"))
+        score = spyk(ScoreFunctionalDto("5"))
+    }
+
+    @Test
+    fun foreignScoreToclu() {
+        Assertions.assertEquals(score.id, score.clu.id)
+        verify(exactly = 1) {
+            score.id
+            score.clu
+        }
+        confirmVerified(score)
     }
 
     @Test
     fun lazyTest() {
-        confirmVerified(scoreFunctionalDtoTest)
+        confirmVerified(score)
     }
 
     @Test
     fun onlyOneFieldTest() {
-        val cindex = scoreFunctionalDtoTest.cindex
+        val cindex = score.cindex
 
         verify(exactly = 1) {
-            scoreFunctionalDtoTest.cindex
+            score.cindex
         }
-        confirmVerified(scoreFunctionalDtoTest)
+        confirmVerified(score)
     }
 
     @Test
     fun onlyAllFieldTest() {
-        val cindex = scoreFunctionalDtoTest.objectInMap
+        val cindex = score.objectInMap
 
         verify(exactly = 1) {
-            scoreFunctionalDtoTest.cindex
-            scoreFunctionalDtoTest.objectInMap
-            scoreFunctionalDtoTest.metaFields()
-            scoreFunctionalDtoTest.clu
-            scoreFunctionalDtoTest.cluParticipants
-            scoreFunctionalDtoTest.id
-            scoreFunctionalDtoTest.merSign
-            scoreFunctionalDtoTest.mshFlg
-            scoreFunctionalDtoTest.nonCurAssets
-            scoreFunctionalDtoTest.opkFlag
-            scoreFunctionalDtoTest.overCap
-            scoreFunctionalDtoTest.ratingOffline
-            scoreFunctionalDtoTest.ratingOfflinePrice
-            scoreFunctionalDtoTest.ratingOfflineReserve
-            scoreFunctionalDtoTest.riskSegmentOffline
-            scoreFunctionalDtoTest.riskSegmentOfflineDate
-            scoreFunctionalDtoTest.skeBase
-            scoreFunctionalDtoTest.skeBcCap
-            scoreFunctionalDtoTest.skeD0
-            scoreFunctionalDtoTest.skeOffline
-            scoreFunctionalDtoTest.thmSign
-            scoreFunctionalDtoTest.wsRatingRestr
+            score.cindex
+            score.objectInMap
+            score.metaFields()
+            score.clu
+            score.cluParticipants
+            score.id
+            score.merSign
+            score.mshFlg
+            score.nonCurAssets
+            score.opkFlag
+            score.overCap
+            score.ratingOffline
+            score.ratingOfflinePrice
+            score.ratingOfflineReserve
+            score.riskSegmentOffline
+            score.riskSegmentOfflineDate
+            score.skeBase
+            score.skeBcCap
+            score.skeD0
+            score.skeOffline
+            score.thmSign
+            score.wsRatingRestr
         }
-        confirmVerified(scoreFunctionalDtoTest)
+        confirmVerified(score)
     }
 
     @Test
     fun onlyMeta() {
-        val cindex = scoreFunctionalDtoTest.metaFields()
+        val cindex = score.metaFields()
 
         verify(exactly = 1) {
-            scoreFunctionalDtoTest.metaFields()
+            score.metaFields()
         }
-        confirmVerified(scoreFunctionalDtoTest)
+        confirmVerified(score)
     }
 
     @Test
     fun onlyMeta2() {
-        val meta: Map<String, FieldMeta> = scoreFunctionalDtoTest.fieldsMetaMap()
+        val meta: Map<String, FieldMeta> = score.fieldsMetaMap()
 
         verify(exactly = 1) {
-            scoreFunctionalDtoTest.fieldsMetaMap()
+            score.fieldsMetaMap()
         }
-        confirmVerified(scoreFunctionalDtoTest)
+        confirmVerified(score)
 
         Assertions.assertTrue(meta.keys.minus(fields.keys).isEmpty()) { meta.keys.minus(fields.keys).toString() }
 

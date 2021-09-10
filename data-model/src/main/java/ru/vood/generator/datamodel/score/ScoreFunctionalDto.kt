@@ -33,7 +33,7 @@ data class ScoreFunctionalDto(
     val nonCurAssets: Int by valueNum(id)
     val opkFlag: Int by valueNum(id)
 
-    val clu: CluFunctionalDto by valueAny(id) { CluFunctionalDto("${it}_SCORE") }
+    val clu: CluFunctionalDto by valueAny(id) { CluFunctionalDto(it) }
 
     val cluParticipants: Set<CluFunctionalDto> by valueSetAny(id, 1, 20) { id, num -> CluFunctionalDto("""${id}_$num""") }
 
