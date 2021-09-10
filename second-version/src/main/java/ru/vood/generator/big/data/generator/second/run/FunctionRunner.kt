@@ -9,8 +9,8 @@ import ru.vood.generator.big.data.generator.second.gen.NewFilePutter
 
 @Service
 class FunctionRunner(
-        private val generateCollection: AbstractGenerateCollection,
-        private val filePutter: NewFilePutter
+    private val generateCollection: AbstractGenerateCollection,
+    private val filePutter: NewFilePutter
 ) : CommandLineRunner {
 
     override fun run(vararg args: String?) {

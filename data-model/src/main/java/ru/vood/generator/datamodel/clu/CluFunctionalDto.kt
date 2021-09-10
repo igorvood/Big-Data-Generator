@@ -1,8 +1,8 @@
 package ru.vood.generator.datamodel.clu
 
-import ru.vood.generator.datamodel.util.dataFields
 import ru.vood.generator.datamodel.util.FieldMeta
 import ru.vood.generator.datamodel.util.GeneratedEntity
+import ru.vood.generator.datamodel.util.dataFields
 import java.time.LocalDateTime
 import kotlin.reflect.KCallable
 

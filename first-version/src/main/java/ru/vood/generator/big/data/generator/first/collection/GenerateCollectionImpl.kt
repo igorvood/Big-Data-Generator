@@ -17,9 +17,9 @@ class GenerateCollectionImpl : GenerateCollection {
 
         val intRange = IntRange(1, cnt).toList()
         return intRange.parallelStream()
-                .peek { if (it % 500 == 0) logger.info("All ready Generate $it of ${gen.javaClass}") }
-                .map { gen.gen() }
-                .collect(toList())
+            .peek { if (it % 500 == 0) logger.info("All ready Generate $it of ${gen.javaClass}") }
+            .map { gen.gen() }
+            .collect(toList())
     }
 
 }

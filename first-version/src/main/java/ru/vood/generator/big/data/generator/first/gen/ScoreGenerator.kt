@@ -7,9 +7,9 @@ import ru.vood.generator.big.data.generator.first.dto.Score
 
 @Service
 class ScoreGenerator(
-        private val strGen: GeneratorData<String>,
-        private val cluGen: GeneratorData<Clu>,
-        private val generateCollection: GenerateCollection
+    private val strGen: GeneratorData<String>,
+    private val cluGen: GeneratorData<Clu>,
+    private val generateCollection: GenerateCollection
 ) : GeneratorData<Score> {
 
 

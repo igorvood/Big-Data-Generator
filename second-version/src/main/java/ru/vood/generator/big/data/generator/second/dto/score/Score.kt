@@ -4,9 +4,9 @@ import ru.vood.generator.big.data.generator.second.gen.MetaDataInterface
 
 
 class Score(
-        val id: String,
-        val crmId: (String) -> String = { it },
-        val inn: (String) -> String = { it }
+    val id: String,
+    val crmId: (String) -> String = { it },
+    val inn: (String) -> String = { it }
 ) : MetaDataInterface {
     companion object {
         val SCORE_HEADERS = ScoreMeta.values().map { it.s }.toSet()

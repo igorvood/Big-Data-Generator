@@ -10,9 +10,9 @@ import ru.vood.generator.big.data.generator.first.gen.GeneratorData
 
 @Service
 class Runner(
-        private val scoreGen: GeneratorData<Score>,
-        private val generateCollection: GenerateCollection,
-        val filePutter: FilePutter
+    private val scoreGen: GeneratorData<Score>,
+    private val generateCollection: GenerateCollection,
+    val filePutter: FilePutter
 
 ) : CommandLineRunner {
     val logger = LoggerFactory.getLogger(Runner::class.java)

@@ -38,11 +38,11 @@ class RunnerService(
         val i = cnt / threads
 
         IntRange(1, threads).toList().parallelStream()
-            .forEach {thread ->
+            .forEach { thread ->
                 File("${thread}_score.csv").bufferedWriter()
                     .use { out ->
                         IntRange(1, i)
-                            .forEach { scoreId->
+                            .forEach { scoreId ->
                                 if (scoreId % 100 == 0) {
                                     val between1 = Duration.between(now, LocalDateTime.now())
                                     log.info("All ready put $scoreId time ${between1.seconds / scoreId.toDouble()} sec per score")
@@ -50,7 +50,10 @@ class RunnerService(
                                 val score =
 //                        restTemplate.getForObject("http://$host/score/$it", ScoreFunctionalDto::class.java)
 //                        restTemplate.getForObject("http://$host/score/$it", String::class.java)
-                                    restTemplate.getForObject("http://$host/scoreMap/${scoreId*thread}", String::class.java)
+                                    restTemplate.getForObject(
+                                        "http://$host/scoreMap/${scoreId * thread}",
+                                        String::class.java
+                                    )
                                 out.write(score.toString() + "\n")
                             }
                     }

@@ -15,17 +15,17 @@ class NewCsvFilePutterImpl : NewFilePutter {
         File(t1.javaClass.simpleName + ".csv").bufferedWriter().use { out ->
             out.write(headerStr + "\n")
             t.withIndex()
-                    .map {
-                        val index = it.index
-                        if (index % 10_000 == 0)
-                            logger.info("All ready put $index")
-                        it.value
-                    }
-                    .forEach { data1 ->
-                        val dataMap = a.dataMap(data1)
-                        val str = header.joinToString(";") { col -> dataMap[col].toString() }
-                        out.write(str + "\n")
-                    }
+                .map {
+                    val index = it.index
+                    if (index % 10_000 == 0)
+                        logger.info("All ready put $index")
+                    it.value
+                }
+                .forEach { data1 ->
+                    val dataMap = a.dataMap(data1)
+                    val str = header.joinToString(";") { col -> dataMap[col].toString() }
+                    out.write(str + "\n")
+                }
 
         }
     }

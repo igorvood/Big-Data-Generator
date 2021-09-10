@@ -18,17 +18,17 @@ class CsvPutter : FilePutter {
         File(t1.javaClass.simpleName + ".csv").bufferedWriter().use { out ->
             out.write(joinToString + "\n")
             t.map { it.data() }
-                    .withIndex()
-                    .map {
-                        val index = it.index
-                        if (index % 100 == 0)
-                            logger.info("All ready put $index")
-                        it.value
-                    }
-                    .forEach { data ->
-                        val data = header.joinToString(";") { col -> data[col].toString() }
-                        out.write(data + "\n")
-                    }
+                .withIndex()
+                .map {
+                    val index = it.index
+                    if (index % 100 == 0)
+                        logger.info("All ready put $index")
+                    it.value
+                }
+                .forEach { data ->
+                    val data = header.joinToString(";") { col -> data[col].toString() }
+                    out.write(data + "\n")
+                }
         }
     }
 }

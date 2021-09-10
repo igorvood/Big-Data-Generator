@@ -6,9 +6,9 @@ import java.util.function.BiFunction
 import java.util.function.Function
 
 class EntityGenerate(
-        val id: Int,
-        val ent: EntityDto,
-        val overrideFun: Map<String, Function<Int, String>> = mapOf()
+    val id: Int,
+    val ent: EntityDto,
+    val overrideFun: Map<String, Function<Int, String>> = mapOf()
 ) : MetaDataInterface {
 
     override fun headers(): Set<String> {
@@ -21,30 +21,30 @@ class EntityGenerate(
 
     fun valueFunction(): Map<String, Function<Int, String>> {
         val map = ent.columns
-                .map { col ->
-                    val s: Function<Int, String> = when (col.type) {
-                        Types.CHAR -> {
-                            if (!col.isId)
-                                Function { integer -> "${col.name}_${integer.hashCode()}" }
-                            else Function { id.toString() }
-                        }
-                        Types.NUM -> Function { integer -> integer.hashCode().toString() }
-                        Types.DATE -> Function { integer ->
-                            val plus = LocalTime.now().plus(integer.hashCode().toLong(), ChronoUnit.HALF_DAYS)
-                            plus.toString()
-                        }
-                        else -> error("Unsupported type ${col.type}")
+            .map { col ->
+                val s: Function<Int, String> = when (col.type) {
+                    Types.CHAR -> {
+                        if (!col.isId)
+                            Function { integer -> "${col.name}_${integer.hashCode()}" }
+                        else Function { id.toString() }
                     }
-                    col.name to (overrideFun[col.name] ?: s)
-                }.toMap()
+                    Types.NUM -> Function { integer -> integer.hashCode().toString() }
+                    Types.DATE -> Function { integer ->
+                        val plus = LocalTime.now().plus(integer.hashCode().toLong(), ChronoUnit.HALF_DAYS)
+                        plus.toString()
+                    }
+                    else -> error("Unsupported type ${col.type}")
+                }
+                col.name to (overrideFun[col.name] ?: s)
+            }.toMap()
         return map
     }
 
     fun value(): Map<String, String> {
         val funs = valueFunction()
         val toMap = headers()
-                .map { colName -> colName to (funs[colName] ?: error("no fun for col $colName")).apply(id) }
-                .toMap()
+            .map { colName -> colName to (funs[colName] ?: error("no fun for col $colName")).apply(id) }
+            .toMap()
         return toMap
     }
 

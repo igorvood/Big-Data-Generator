@@ -18,9 +18,9 @@ interface FunctionGenerateCollection {
 
         val intRange = IntRange(1, cnt).toList()
         return intRange.parallelStream()
-                .peek { if (it % 10_500 == 0) logger.info("All ready Generate $it of ${gen.javaClass}") }
-                .map { genOne(it, gen) }
-                .collect(Collectors.toList())
+            .peek { if (it % 10_500 == 0) logger.info("All ready Generate $it of ${gen.javaClass}") }
+            .map { genOne(it, gen) }
+            .collect(Collectors.toList())
 
     }
 
