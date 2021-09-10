@@ -37,10 +37,9 @@ data class ScoreFunctionalDto(
 
     val cluParticipants: Set<CluFunctionalDto> by valueSetAny(id, 1, 20) { id, num -> CluFunctionalDto("""${id}_$num""") }
 
+    override fun objectInMap(): Map<String, Any> = objectInMap
 
     override fun metaFields(): Set<KCallable<*>> = fieldsMetaKotlin
-
-    override fun objectInMap(): Map<String, Any> = objectInMap
 
     override fun fieldsMetaMap(): Map<String, FieldMeta> = fieldsMetaMap
 
