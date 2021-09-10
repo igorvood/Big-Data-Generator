@@ -1,5 +1,6 @@
 package ru.vood.generator.datamodel.score
 
+import org.apache.commons.logging.LogFactory
 import ru.vood.generator.datamodel.clu.CluFunctionalDto
 import ru.vood.generator.datamodel.util.FieldMeta
 import ru.vood.generator.datamodel.util.GeneratedEntity
@@ -10,7 +11,7 @@ import kotlin.reflect.KCallable
 data class ScoreFunctionalDto(
     val id: String,
 ) : GeneratedEntity<ScoreFunctionalDto> {
-
+    private val log = LogFactory.getLog(ScoreFunctionalDto::class.java)
     val objectInMap: Map<String, Any> by objToMap()
 
     val riskSegmentOffline: String by valueStr(id)
@@ -34,7 +35,7 @@ data class ScoreFunctionalDto(
 
     val clu: CluFunctionalDto by valueAny(id) { CluFunctionalDto("${it}_SCORE") }
 
-    val clus: Set<CluFunctionalDto> by valueSetAny(id, 1, 20) { id, num -> CluFunctionalDto("""${id}_$num""") }
+    val cluParticipants: Set<CluFunctionalDto> by valueSetAny(id, 1, 20) { id, num -> CluFunctionalDto("""${id}_$num""") }
 
 
     override fun metaFields(): Set<KCallable<*>> = fieldsMetaKotlin

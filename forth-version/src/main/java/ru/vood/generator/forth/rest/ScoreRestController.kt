@@ -27,7 +27,7 @@ class ScoreRestController : EntityRestControllerService<ScoreFunctionalDto> {
     }
 
     @GetMapping(value = ["/hello"])
-    fun asd(): ScoreFunctionalDto {
-        return ScoreFunctionalDto("entityId")
+    fun asd(): String {
+        return ScoreFunctionalDto("5").id
     }
 }
