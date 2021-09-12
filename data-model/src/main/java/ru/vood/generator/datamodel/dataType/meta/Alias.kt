@@ -1,7 +1,7 @@
 package ru.vood.generator.datamodel.dataType.meta
 
 import ru.vood.generator.datamodel.dataType.meta.type.DataType
-import ru.vood.generator.datamodel.score.EntityTemplate
+import ru.vood.generator.datamodel.dataType.meta.type.EntityTemplate
 
 typealias GenerateIdValueFunction<T> = () -> DataType<T>
 typealias GenerateFieldValueFunction<T> = (EntityTemplate<T>, String) -> DataType<*>

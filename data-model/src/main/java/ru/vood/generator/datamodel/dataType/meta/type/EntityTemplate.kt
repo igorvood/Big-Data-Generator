@@ -1,6 +1,4 @@
-package ru.vood.generator.datamodel.score
-
-import ru.vood.generator.datamodel.dataType.meta.type.DataType
+package ru.vood.generator.datamodel.dataType.meta.type
 
 abstract class EntityTemplate<T>(val id: T) : DataType<EntityTemplate<T>> {
 //    val id: T
