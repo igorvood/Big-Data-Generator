@@ -1,21 +1,21 @@
 package ru.vood.generator.datamodel.dataType.meta
 
-data class Ent<T>(
+data class MetaEnt<T>(
     val name: EntityName,
-    val property: Set<EntProperty<T>>,
-    val ck: Set<EntCk<T>>,
-    val fk: Set<EntFk<T>>,
+    val property: Set<MetaProperty<T>>,
+    val ck: Set<MetaCk<T>> = setOf(),
+    val fk: Set<MetaFk<T>> = setOf(),
 )
 
-data class EntProperty<T>(
+data class MetaProperty<T>(
     val name: FieldName,
     val function: GenerateFieldValueFunction<T>
 )
 
-data class EntCk<T>(
+data class MetaCk<T>(
     val name: ConstraintName
 )
 
-data class EntFk<T>(
+data class MetaFk<T>(
     val name: ConstraintName
 )
