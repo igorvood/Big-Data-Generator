@@ -1,81 +1,78 @@
 package ru.vood.generator.datamodel.dataType.meta.dsl
 
 import ru.vood.generator.datamodel.dataType.meta.*
-import ru.vood.generator.datamodel.dataType.meta.dsl.MetaEntBuilder.*
+import ru.vood.generator.datamodel.dataType.meta.dsl.n.Builder
 import ru.vood.generator.datamodel.dataType.meta.type.DataType
-import ru.vood.generator.datamodel.dataType.meta.type.StringType
+import ru.vood.generator.datamodel.dataType.meta.type.EntityTemplate
+import java.math.BigDecimal
+import java.time.LocalDateTime
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 
-class MetaEntBuilder<T> internal constructor() {
+class MetaEntBuilder<ET : EntityTemplate<ET>> : Builder<MetaEnt<ET>> {
     var name: EntityName = ""
-    internal val property: MutableSet<MetaProperty<T>> = mutableSetOf()
-    internal val ck: MutableSet<MetaCk<T>> = mutableSetOf()
-    internal val fk: MutableSet<MetaFk<T>> = mutableSetOf()
+//    val property: MutableSet<MetaProperty<ET, *>> = mutableSetOf()
+    val propertyBuilder: MutableSet<MetaPropertyBuilder<*>> = mutableSetOf()
+    val ck: MutableSet<MetaCk<ET>> = mutableSetOf()
+    val fk: MutableSet<MetaFk<ET>> = mutableSetOf()
 
-    fun build(): MetaEnt<T> {
-        return MetaEnt(name, property, ck, fk)
+    override fun build(): MetaEnt<ET> {
+        return MetaEnt(
+            name = name,
+            property = propertyBuilder.map { it.build() }.toSet(),
+            ck = ck,
+            fk = fk
+        )
     }
 
 
-    //    val string get() = MetaPropertyBuilder()
-    inner class MetaPropertyBuilder<T>(
+    fun string() = MetaPropertyBuilder<String>()
+    fun number() = MetaPropertyBuilder<BigDecimal>()
+    fun date() = MetaPropertyBuilder<LocalDateTime>()
+
+    inline fun <reified Z> ref() = MetaPropertyBuilder<Z>()
+
+    inner class MetaPropertyBuilder<R>(
         var name: FieldName = "",
-        var function: GenerateFieldValueFunction<T> = { _, _ ->
-            object : DataType<T> {
-                override fun value(): T {
+        var function: GenerateFieldValueFunction<ET, R> = { _, _ ->
+            object : DataType<R> {
+                override fun value(): R {
                     error("Not defined")
                 }
             }
         }
-    ) {
+    ) : Builder<MetaProperty<ET, R>> {
         operator fun provideDelegate(
             thisRef: Nothing?,
             property: KProperty<*>
-        ): ReadOnlyProperty<Nothing?, MetaProperty<T>> {
-//            name = property.name
-//            val e: MetaProperty<T> = this@MetaPropertyBuilder.build()
-//            val metaEntBuilder: MetaEntBuilder<Any> = this@MetaEntBuilder
-//            metaEntBuilder.property.add(element = MetaProperty("sadasd" ))
-            TODO()
-            /*return ReadOnlyProperty { thisRef, property ->
-                val metaPropertyBuilder = MetaPropertyBuilder<T>()
+        ): ReadOnlyProperty<Nothing?, MetaProperty<ET, R>> {
+            name = property.name
+            val mEntBuild: MetaEntBuilder<ET> = this@MetaEntBuilder
+/*
+            val build: MetaProperty<ET, R> = this@MetaPropertyBuilder.build()
+            mEntBuild.property.add(build)
+*/
+            mEntBuild.propertyBuilder.add(this@MetaPropertyBuilder)
+            return ReadOnlyProperty { thisRef, property ->
+                return@ReadOnlyProperty this@MetaPropertyBuilder.build()
+            }
+        }
+
+        override fun build(): MetaProperty<ET, R> {
+            return MetaProperty(name, function)
+        }
+        /*fun string(): ReadOnlyProperty<Nothing?, MetaPropertyBuilder<StringType>> {
+            return ReadOnlyProperty { thisRef, property ->
+                val metaPropertyBuilder = MetaPropertyBuilder<StringType>()
                 metaPropertyBuilder.name = property.name
                 return@ReadOnlyProperty metaPropertyBuilder
-            }*/
-        }
-
-        /*
-        * Type mismatch.Required:MetaProperty<T#1 (type parameter of ru.vood.generator.datamodel.dataType.meta.dsl.MetaEntBuilder)>
-Found:                           MetaProperty<T#2 (type parameter of ru.vood.generator.datamodel.dataType.meta.dsl.MetaEntBuilder.MetaPropertyBuilder)>
-        * */
-
-        fun build(): MetaProperty<T> {
-            return MetaProperty<T>(name, function)
-        }
+            }
+        }*/
     }
-
-    fun string(): ReadOnlyProperty<Nothing?, MetaPropertyBuilder<StringType>> {
-        return ReadOnlyProperty { thisRef, property ->
-            val metaPropertyBuilder = MetaPropertyBuilder<StringType>()
-            metaPropertyBuilder.name = property.name
-            return@ReadOnlyProperty metaPropertyBuilder
-        }
-    }
-
-//    public infix fun <T> MetaPropertyBuilder<T>.withFun(f: GenerateFieldValueFunction<T>): MetaPropertyBuilder<T> {
-//        this.function = f
-//        return this
-//    }
-
-
 }
 
-
-
-
-fun <T> entity(body: MetaEntBuilder<T>.() -> Unit): ReadOnlyProperty<Nothing?, MetaEnt<T>> {
+fun <T : EntityTemplate<T>> entity(body: MetaEntBuilder<T>.() -> Unit): ReadOnlyProperty<Nothing?, MetaEnt<T>> {
 
     return ReadOnlyProperty { thisRef, property ->
         val metaEntBuilder = MetaEntBuilder<T>()
