@@ -12,7 +12,8 @@ import kotlin.reflect.KProperty
 
 class MetaEntBuilder<ET : EntityTemplate<ET>> : Builder<MetaEnt<ET>> {
     var name: EntityName = ""
-//    val property: MutableSet<MetaProperty<ET, *>> = mutableSetOf()
+
+    //    val property: MutableSet<MetaProperty<ET, *>> = mutableSetOf()
     val propertyBuilder: MutableSet<MetaPropertyBuilder<*>> = mutableSetOf()
     val ck: MutableSet<MetaCk<ET>> = mutableSetOf()
     val fk: MutableSet<MetaFk<ET>> = mutableSetOf()
@@ -32,6 +33,8 @@ class MetaEntBuilder<ET : EntityTemplate<ET>> : Builder<MetaEnt<ET>> {
     fun date() = MetaPropertyBuilder<LocalDateTime>()
 
     inline fun <reified Z> ref() = MetaPropertyBuilder<Z>()
+
+    inline fun <reified Z> set() = MetaPropertyBuilder<Set<Z>>()
 
     inner class MetaPropertyBuilder<R>(
         var name: FieldName = "",
@@ -69,6 +72,36 @@ class MetaEntBuilder<ET : EntityTemplate<ET>> : Builder<MetaEnt<ET>> {
                 return@ReadOnlyProperty metaPropertyBuilder
             }
         }*/
+    }
+}
+
+infix fun <R, ET : EntityTemplate<ET>> MetaEntBuilder<ET>.MetaPropertyBuilder<R>.withFun(
+    f: GenerateFieldValueFunction<ET, R>
+): MetaEntBuilder<ET>.MetaPropertyBuilder<R> {
+    this.function = f
+    return this
+}
+
+infix fun <R, ET : EntityTemplate<ET>> MetaEntBuilder<ET>.MetaPropertyBuilder<R>.withFun2(
+    f: GenerateFieldValueFunctionDsl<ET, R>
+): MetaEntBuilder<ET>.MetaPropertyBuilder<R> {
+    this.function = convert(f)
+    return this
+}
+
+fun <T:EntityTemplate<T>, OUT_TYPE> convert2(f: (T, ) -> OUT_TYPE): GenerateFieldValueFunction<T, OUT_TYPE> {
+    TODO()
+}
+
+fun <T:EntityTemplate<T>, OUT_TYPE> convert(f: GenerateFieldValueFunctionDsl<T, OUT_TYPE>): GenerateFieldValueFunction<T, OUT_TYPE> {
+    return object : GenerateFieldValueFunction<T, OUT_TYPE> {
+        override fun invoke(p1: EntityTemplate<T>, p2: String): DataType<OUT_TYPE> {
+            return object : DataType<OUT_TYPE> {
+                override fun value(): OUT_TYPE {
+                    return f(p1, p2)()
+                }
+            }
+        }
     }
 }
 
