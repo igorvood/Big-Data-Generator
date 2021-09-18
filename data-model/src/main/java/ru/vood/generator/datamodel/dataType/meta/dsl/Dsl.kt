@@ -7,22 +7,20 @@ import java.time.LocalDateTime
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-
 class MetaEntBuilder<ET : EntityTemplate<ET_ID_TYPE>, ET_ID_TYPE : DataType<*>> : Builder<MetaEntity<ET, ET_ID_TYPE>> {
     var name: EntityName = ""
     val propertyBuilder: MutableSet<MetaPropertyBuilder<*>> = mutableSetOf()
-    val ck: MutableSet<MetaCheck<ET>> = mutableSetOf()
+    val ck: MutableSet<MetaCheckBuilder> = mutableSetOf()
     val fk: MutableSet<MetaFk<ET>> = mutableSetOf()
 
     override fun build(): MetaEntity<ET, ET_ID_TYPE> {
         return MetaEntity(
             name = name,
             property = propertyBuilder.map { it.build() }.toSet(),
-            ck = ck,
+            ck = ck.map { it.build() }.toSet(),
             fk = fk
         )
     }
-
 
     fun string() = MetaPropertyBuilder<String>()
     val STRING = string()
@@ -35,6 +33,25 @@ class MetaEntBuilder<ET : EntityTemplate<ET_ID_TYPE>, ET_ID_TYPE : DataType<*>> 
 
     inline fun <reified Z> set() = MetaPropertyBuilder<Set<Z>>()
 
+    inner class MetaCheckBuilder(
+        var name: ConstraintName,
+        var checkFunction: ()->Boolean = {true}
+    ) : Builder<MetaCheck<ET>> {
+        override fun build(): MetaCheck<ET> {
+            return MetaCheck(name, checkFunction)
+        }
+
+        operator fun provideDelegate(
+            thisRef: Nothing?,
+            property: KProperty<*>
+        ): ReadOnlyProperty<Nothing?, MetaCheck<ET>> {
+            name = property.name
+            this@MetaEntBuilder.ck.add(this@MetaCheckBuilder)
+            TODO()
+        }
+
+        }
+
     inner class MetaPropertyBuilder<R>(
         var name: FieldName = "",
         var function: GenerateFieldValueFunction<ET_ID_TYPE, R> = { _, _ ->
@@ -45,6 +62,7 @@ class MetaEntBuilder<ET : EntityTemplate<ET_ID_TYPE>, ET_ID_TYPE : DataType<*>> 
             }
         }
     ) : Builder<MetaProperty<ET_ID_TYPE, R>> {
+
         operator fun provideDelegate(
             thisRef: Nothing?,
             property: KProperty<*>
