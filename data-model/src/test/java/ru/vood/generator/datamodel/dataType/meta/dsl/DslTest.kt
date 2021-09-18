@@ -69,25 +69,24 @@ internal class DslTest {
         )
 
         val score by entity<ScoreDto> {
-            val riskSegmentOffline by STRING withFun { et, pn -> StringTypeNotNull { "${et.id}_$pn" } }
-            val number by NUMBER
-            val date by DATE
-
-            val refOtherEnt by ref<ScoreDto>()
-            val setOtherEnt by set<ScoreDto>()
-        }
-
-
-        val score2 by entity<ScoreDto> {
             val riskSegmentOffline by STRING with { et, pn -> "${et.id}_$pn" }
-            val number by number()
-            val date by date()
+            val number by NUMBER with { et, pn -> BigDecimal(et.id.hashCode() + pn.hashCode()) }
+            val date by DATE with { et, pn ->
+                LocalDateTime
+                    .of(1970, 1, 1, 12, 12)
+                    .plusSeconds(et.id.hashCode().toLong() + pn.hashCode().toLong())
+            }
 
-            val refOtherEnt by ref<ScoreDto>()
-            val setOtherEnt by set<ScoreDto>()
+//            val refOtherEnt by ref<ScoreDto>()
+//            val setOtherEnt by set<ScoreDto>()
         }
 
-        assertEquals(expected, score)
+
+        assertEquals(expected.name, score.name)
+        assertEquals(expected.property.map { it.name }, score.property.map { it.name })
+        val scoreDto = ScoreDto("1")
+        assertEquals(expected.property.map { it.function(scoreDto,it.name) }, score.property.map { it.function(scoreDto,it.name) })
+
     }
 
 }

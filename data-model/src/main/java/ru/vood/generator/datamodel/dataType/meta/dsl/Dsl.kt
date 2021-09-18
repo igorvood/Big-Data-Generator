@@ -76,10 +76,10 @@ inline infix fun <reified R, reified ET : EntityTemplate<ET>> MetaEntBuilder<ET>
     crossinline f: GenerateFieldValueFunctionDsl<ET, R>
 ): MetaEntBuilder<ET>.MetaPropertyBuilder<R> {
     this.function =
-        { p1, p2 ->
+        { entityTemplate, parameterName ->
             object : DataType<R> {
                 override fun value(): R {
-                    return f(p1, p2)
+                    return f(entityTemplate, parameterName)
                 }
             }
         }
