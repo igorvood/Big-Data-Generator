@@ -4,9 +4,6 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import ru.vood.generator.datamodel.dataType.meta.GenerateFieldValueFunction
-import ru.vood.generator.datamodel.dataType.meta.MetaEnt
-import ru.vood.generator.datamodel.dataType.meta.MetaProperty
 import ru.vood.generator.datamodel.dataType.meta.score.ScoreDto
 import ru.vood.generator.datamodel.dataType.meta.type.*
 import java.math.BigDecimal

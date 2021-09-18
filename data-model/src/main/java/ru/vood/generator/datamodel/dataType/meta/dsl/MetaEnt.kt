@@ -1,4 +1,4 @@
-package ru.vood.generator.datamodel.dataType.meta
+package ru.vood.generator.datamodel.dataType.meta.dsl
 
 data class MetaEnt<T>(
     val name: EntityName,

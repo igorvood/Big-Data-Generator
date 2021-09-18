@@ -1,6 +1,5 @@
-package ru.vood.generator.datamodel.dataType.meta.dsl.n
+package ru.vood.generator.datamodel.dataType.meta.dsl
 
-import ru.vood.generator.datamodel.dataType.meta.*
 import ru.vood.generator.datamodel.dataType.meta.type.DataType
 import ru.vood.generator.datamodel.dataType.meta.type.EntityTemplate
 import ru.vood.generator.datamodel.dataType.meta.type.StringType
