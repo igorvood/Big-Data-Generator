@@ -23,7 +23,7 @@ internal class DslTest {
     fun getName() {
 
 
-        val expected = MetaEnt<ScoreDto, StringTypeNotNull>(
+        val expected = MetaEntity<ScoreDto, StringTypeNotNull>(
             name = "score",
             setOf<MetaProperty<StringTypeNotNull, *>>(
                 MetaProperty<StringTypeNotNull, LocalDateTime>("date",

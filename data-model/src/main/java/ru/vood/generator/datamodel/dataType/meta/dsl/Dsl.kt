@@ -8,14 +8,14 @@ import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 
-class MetaEntBuilder<ET : EntityTemplate<ET_ID_TYPE>, ET_ID_TYPE : DataType<*>> : Builder<MetaEnt<ET, ET_ID_TYPE>> {
+class MetaEntBuilder<ET : EntityTemplate<ET_ID_TYPE>, ET_ID_TYPE : DataType<*>> : Builder<MetaEntity<ET, ET_ID_TYPE>> {
     var name: EntityName = ""
     val propertyBuilder: MutableSet<MetaPropertyBuilder<*>> = mutableSetOf()
-    val ck: MutableSet<MetaCk<ET>> = mutableSetOf()
+    val ck: MutableSet<MetaCheck<ET>> = mutableSetOf()
     val fk: MutableSet<MetaFk<ET>> = mutableSetOf()
 
-    override fun build(): MetaEnt<ET, ET_ID_TYPE> {
-        return MetaEnt(
+    override fun build(): MetaEntity<ET, ET_ID_TYPE> {
+        return MetaEntity(
             name = name,
             property = propertyBuilder.map { it.build() }.toSet(),
             ck = ck,
@@ -86,7 +86,7 @@ inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified R, reified ET
 
 inline fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified ET_ID_TYPE : DataType<*>> entity(
     crossinline body: MetaEntBuilder<ET, ET_ID_TYPE>.() -> Unit
-): ReadOnlyProperty<Nothing?, MetaEnt<ET, ET_ID_TYPE>> {
+): ReadOnlyProperty<Nothing?, MetaEntity<ET, ET_ID_TYPE>> {
 
     return ReadOnlyProperty { thisRef, property ->
         val metaEntBuilder = MetaEntBuilder<ET, ET_ID_TYPE>()
