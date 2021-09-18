@@ -69,9 +69,9 @@ internal class DslTest {
         )
 
         val score by entity<ScoreDto> {
-            val riskSegmentOffline by string() withFun { et, pn -> StringTypeNotNull { "${et.id}_$pn" } }
-            val number by number()
-            val date by date()
+            val riskSegmentOffline by STRING withFun { et, pn -> StringTypeNotNull { "${et.id}_$pn" } }
+            val number by NUMBER
+            val date by DATE
 
             val refOtherEnt by ref<ScoreDto>()
             val setOtherEnt by set<ScoreDto>()
@@ -79,7 +79,7 @@ internal class DslTest {
 
 
         val score2 by entity<ScoreDto> {
-            val riskSegmentOffline by string() withFun_1 { et, pn -> "${et.id}_$pn" }
+            val riskSegmentOffline by STRING with { et, pn -> "${et.id}_$pn" }
             val number by number()
             val date by date()
 
@@ -92,20 +92,6 @@ internal class DslTest {
 
 }
 
-infix fun <R, ET : EntityTemplate<ET>> MetaEntBuilder<ET>.MetaPropertyBuilder<R>.withFun_1(
-    f: GenerateFieldValueFunctionDslTest<ET, R>
-): MetaEntBuilder<ET>.MetaPropertyBuilder<R> {
 
 
-    val value1:GenerateFieldValueFunction<ET, R> = object : GenerateFieldValueFunction<ET, R> {
-        override fun invoke(p1: EntityTemplate<ET>, p2: String): DataType<R> = object : DataType<R> {
-            override fun value(): R {
-                return f(p1, p2)
-            }
-        }
-    }
-    this.function = value1
-    return this
-}
 
-typealias GenerateFieldValueFunctionDslTest<T, OUT_TYPE> = (EntityTemplate<T>, String) -> OUT_TYPE

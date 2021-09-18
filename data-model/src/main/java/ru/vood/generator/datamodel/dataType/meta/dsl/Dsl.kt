@@ -29,8 +29,11 @@ class MetaEntBuilder<ET : EntityTemplate<ET>> : Builder<MetaEnt<ET>> {
 
 
     fun string() = MetaPropertyBuilder<String>()
+    val STRING = string()
     fun number() = MetaPropertyBuilder<BigDecimal>()
+    val NUMBER = number()
     fun date() = MetaPropertyBuilder<LocalDateTime>()
+    val DATE = date()
 
     inline fun <reified Z> ref() = MetaPropertyBuilder<Z>()
 
@@ -82,27 +85,18 @@ infix fun <R, ET : EntityTemplate<ET>> MetaEntBuilder<ET>.MetaPropertyBuilder<R>
     return this
 }
 
-infix fun <R, ET : EntityTemplate<ET>> MetaEntBuilder<ET>.MetaPropertyBuilder<R>.withFun2(
+infix fun <R, ET : EntityTemplate<ET>> MetaEntBuilder<ET>.MetaPropertyBuilder<R>.with(
     f: GenerateFieldValueFunctionDsl<ET, R>
 ): MetaEntBuilder<ET>.MetaPropertyBuilder<R> {
-    this.function = convert(f)
-    return this
-}
-
-fun <T:EntityTemplate<T>, OUT_TYPE> convert2(f: (T, ) -> OUT_TYPE): GenerateFieldValueFunction<T, OUT_TYPE> {
-    TODO()
-}
-
-fun <T:EntityTemplate<T>, OUT_TYPE> convert(f: GenerateFieldValueFunctionDsl<T, OUT_TYPE>): GenerateFieldValueFunction<T, OUT_TYPE> {
-    return object : GenerateFieldValueFunction<T, OUT_TYPE> {
-        override fun invoke(p1: EntityTemplate<T>, p2: String): DataType<OUT_TYPE> {
-            return object : DataType<OUT_TYPE> {
-                override fun value(): OUT_TYPE {
-                    return f(p1, p2)()
+    this.function =
+        { p1, p2 ->
+            object : DataType<R> {
+                override fun value(): R {
+                    return f(p1, p2)
                 }
             }
         }
-    }
+    return this
 }
 
 fun <T : EntityTemplate<T>> entity(body: MetaEntBuilder<T>.() -> Unit): ReadOnlyProperty<Nothing?, MetaEnt<T>> {
