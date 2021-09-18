@@ -12,8 +12,6 @@ import kotlin.reflect.KProperty
 
 class MetaEntBuilder<ET : EntityTemplate<ET>> : Builder<MetaEnt<ET>> {
     var name: EntityName = ""
-
-    //    val property: MutableSet<MetaProperty<ET, *>> = mutableSetOf()
     val propertyBuilder: MutableSet<MetaPropertyBuilder<*>> = mutableSetOf()
     val ck: MutableSet<MetaCk<ET>> = mutableSetOf()
     val fk: MutableSet<MetaFk<ET>> = mutableSetOf()
@@ -55,10 +53,6 @@ class MetaEntBuilder<ET : EntityTemplate<ET>> : Builder<MetaEnt<ET>> {
         ): ReadOnlyProperty<Nothing?, MetaProperty<ET, R>> {
             name = property.name
             val mEntBuild: MetaEntBuilder<ET> = this@MetaEntBuilder
-/*
-            val build: MetaProperty<ET, R> = this@MetaPropertyBuilder.build()
-            mEntBuild.property.add(build)
-*/
             mEntBuild.propertyBuilder.add(this@MetaPropertyBuilder)
             return ReadOnlyProperty { thisRef, property ->
                 return@ReadOnlyProperty this@MetaPropertyBuilder.build()
@@ -68,25 +62,18 @@ class MetaEntBuilder<ET : EntityTemplate<ET>> : Builder<MetaEnt<ET>> {
         override fun build(): MetaProperty<ET, R> {
             return MetaProperty(name, function)
         }
-        /*fun string(): ReadOnlyProperty<Nothing?, MetaPropertyBuilder<StringType>> {
-            return ReadOnlyProperty { thisRef, property ->
-                val metaPropertyBuilder = MetaPropertyBuilder<StringType>()
-                metaPropertyBuilder.name = property.name
-                return@ReadOnlyProperty metaPropertyBuilder
-            }
-        }*/
     }
 }
 
-infix fun <R, ET : EntityTemplate<ET>> MetaEntBuilder<ET>.MetaPropertyBuilder<R>.withFun(
-    f: GenerateFieldValueFunction<ET, R>
+inline infix fun <reified R, reified ET : EntityTemplate<ET>> MetaEntBuilder<ET>.MetaPropertyBuilder<R>.withFun(
+    noinline f: GenerateFieldValueFunction<ET, R>
 ): MetaEntBuilder<ET>.MetaPropertyBuilder<R> {
     this.function = f
     return this
 }
 
-infix fun <R, ET : EntityTemplate<ET>> MetaEntBuilder<ET>.MetaPropertyBuilder<R>.with(
-    f: GenerateFieldValueFunctionDsl<ET, R>
+inline infix fun <reified R, reified ET : EntityTemplate<ET>> MetaEntBuilder<ET>.MetaPropertyBuilder<R>.with(
+    crossinline f: GenerateFieldValueFunctionDsl<ET, R>
 ): MetaEntBuilder<ET>.MetaPropertyBuilder<R> {
     this.function =
         { p1, p2 ->
@@ -99,7 +86,7 @@ infix fun <R, ET : EntityTemplate<ET>> MetaEntBuilder<ET>.MetaPropertyBuilder<R>
     return this
 }
 
-fun <T : EntityTemplate<T>> entity(body: MetaEntBuilder<T>.() -> Unit): ReadOnlyProperty<Nothing?, MetaEnt<T>> {
+inline fun <reified T : EntityTemplate<T>> entity(crossinline body: MetaEntBuilder<T>.() -> Unit): ReadOnlyProperty<Nothing?, MetaEnt<T>> {
 
     return ReadOnlyProperty { thisRef, property ->
         val metaEntBuilder = MetaEntBuilder<T>()

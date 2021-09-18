@@ -53,14 +53,3 @@ class MetaEntityBuilder<ET : EntityTemplate<ET>> : Builder<MetaEnt<ET>> {
         }
     }
 }
-
-fun <T : EntityTemplate<T>> entity(body: MetaEntityBuilder<T>.() -> Unit): ReadOnlyProperty<Nothing?, MetaEnt<T>> {
-
-    return ReadOnlyProperty { thisRef, property ->
-        val metaEntBuilder = MetaEntityBuilder<T>()
-        metaEntBuilder.name = property.name
-        metaEntBuilder.body()
-        metaEntBuilder.build()
-    }
-
-}
