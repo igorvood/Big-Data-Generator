@@ -56,16 +56,51 @@ internal class DslTest {
                     )
                 }
             })
-        val expected: MetaEnt<ScoreDto> = MetaEnt(
+
+        val expected = MetaEnt<ScoreDto, StringTypeNotNull>(
             name = "score",
-            property = setOf(
-                string,
-                number,
-                date,
-            ),
+            setOf<MetaProperty<StringTypeNotNull, *>>(
+                MetaProperty<StringTypeNotNull, LocalDateTime>("date",
+                    object : GenerateFieldValueFunction<StringTypeNotNull, LocalDateTime> {
+                        override fun invoke(
+                            entityTemplate: EntityTemplate<StringTypeNotNull>,
+                            propertyName: String
+                        ): DataType<LocalDateTime> {
+                            return DateType(
+                                LocalDateTime
+                                    .of(1970, 1, 1, 12, 12)
+                                    .plusSeconds(
+                                        entityTemplate.id.hashCode().toLong() + propertyName.hashCode().toLong()
+                                    )
+                            )
+                        }
+                    }
+                ),
+                MetaProperty<StringTypeNotNull, BigDecimal>("number",
+                    object : GenerateFieldValueFunction<StringTypeNotNull, BigDecimal> {
+                        override fun invoke(
+                            entityTemplate: EntityTemplate<StringTypeNotNull>,
+                            propertyName: String
+                        ): DataType<BigDecimal> {
+                            return NumberType(BigDecimal(entityTemplate.id.hashCode() + propertyName.hashCode()))
+                        }
+                    }
+                ),
+                MetaProperty<StringTypeNotNull, String>(
+                    "riskSegmentOffline",
+                    object : GenerateFieldValueFunction<StringTypeNotNull, String> {
+                        override fun invoke(
+                            entityTemplate: EntityTemplate<StringTypeNotNull>,
+                            propertyName: String
+                        ): DataType<String> {
+                            return StringTypeNotNull("${entityTemplate.id}_$propertyName")
+                        }
+                    }
+                )
+            )
         )
 
-        val score by entity<ScoreDto> {
+        val score by entity<ScoreDto, StringTypeNotNull> {
             val riskSegmentOffline by STRING with { et, pn -> "${et.id}_$pn" }
             val number by NUMBER with { et, pn -> BigDecimal(et.id.hashCode() + pn.hashCode()) }
             val date by DATE with { et, pn ->
@@ -74,15 +109,18 @@ internal class DslTest {
                     .plusSeconds(et.id.hashCode().toLong() + pn.hashCode().toLong())
             }
 
-//            val refOtherEnt by ref<ScoreDto>()
-//            val setOtherEnt by set<ScoreDto>()
+
         }
 
 
+
+
         assertEquals(expected.name, score.name)
-        assertEquals(expected.property.map { it.name }, score.property.map { it.name })
+        assertEquals(expected.property.map { it.name }.sorted(), score.property.map { it.name }.sorted())
         val scoreDto = ScoreDto("1")
-        assertEquals(expected.property.map { it.function(scoreDto,it.name) }, score.property.map { it.function(scoreDto,it.name) })
+        val exp: List<Any?> = expected.property.sortedBy { it.name }.map { it.function(scoreDto, it.name).value() }
+        val map: List<Any?> = score.property.sortedBy { it.name }.map { it.function(scoreDto, it.name).value() }
+        assertEquals(exp, map)
 
     }
 
