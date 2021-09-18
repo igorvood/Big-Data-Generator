@@ -3,7 +3,7 @@ package ru.vood.generator.datamodel.dataType.meta.dsl
 import ru.vood.generator.datamodel.dataType.meta.type.DataType
 import ru.vood.generator.datamodel.dataType.meta.type.EntityTemplate
 
-data class MetaEnt<T : EntityTemplate<ID_TYPE>, ID_TYPE: DataType<*>>
+data class MetaEnt<T : EntityTemplate<ID_TYPE>, ID_TYPE : DataType<*>>
 //        where T: EntityTemplate<Q>
     (
     val name: EntityName,
@@ -12,7 +12,7 @@ data class MetaEnt<T : EntityTemplate<ID_TYPE>, ID_TYPE: DataType<*>>
     val fk: Set<MetaFk<T>> = setOf(),
 )
 
-data class MetaProperty<ID_TYPE: DataType<*>, OUT_TYPE>(
+data class MetaProperty<ID_TYPE : DataType<*>, OUT_TYPE>(
     val name: FieldName,
     val function: GenerateFieldValueFunction<ID_TYPE, OUT_TYPE>
 )

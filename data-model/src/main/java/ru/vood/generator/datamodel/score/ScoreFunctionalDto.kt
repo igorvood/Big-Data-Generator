@@ -35,7 +35,11 @@ data class ScoreFunctionalDto(
 
     val clu: CluFunctionalDto by valueAny(id) { CluFunctionalDto(it) }
 
-    val cluParticipants: Set<CluFunctionalDto> by valueSetAny(id, 1, 20) { id, num -> CluFunctionalDto("""${id}_$num""") }
+    val cluParticipants: Set<CluFunctionalDto> by valueSetAny(
+        id,
+        1,
+        20
+    ) { id, num -> CluFunctionalDto("""${id}_$num""") }
 
     override fun objectInMap(): Map<String, Any> = objectInMap
 

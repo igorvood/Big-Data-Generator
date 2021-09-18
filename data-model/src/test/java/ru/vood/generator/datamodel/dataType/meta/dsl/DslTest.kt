@@ -19,43 +19,9 @@ internal class DslTest {
     fun tearDown() {
     }
 
-    private val GEN_STR =
-        object : GenerateFieldValueFunction<ScoreDto, String?> {
-            override fun invoke(entityTemplate: EntityTemplate<ScoreDto>, s: String): DataType<String?> {
-                return StringType("${entityTemplate.id}_$s")
-            }
-        }
-
     @Test
     fun getName() {
-        val string = MetaProperty(
-            "riskSegmentOffline",
-            GEN_STR
-        )
-        val number = MetaProperty(
-            "number",
-            object : GenerateFieldValueFunction<ScoreDto, BigDecimal?> {
-                override fun invoke(
-                    entityTemplate: EntityTemplate<ScoreDto>,
-                    s: String
-                ): DataType<BigDecimal?> {
-                    return NumberType(BigDecimal(entityTemplate.id.hashCode() + s.hashCode()))
-                }
-            })
-        val date = MetaProperty(
-            "date",
-            object : GenerateFieldValueFunction<ScoreDto, LocalDateTime?> {
-                override fun invoke(
-                    entityTemplate: EntityTemplate<ScoreDto>,
-                    s: String
-                ): DataType<LocalDateTime?> {
-                    return DateType(
-                        LocalDateTime
-                            .of(1970, 1, 1, 12, 12)
-                            .plusSeconds(entityTemplate.id.hashCode().toLong() + s.hashCode().toLong())
-                    )
-                }
-            })
+
 
         val expected = MetaEnt<ScoreDto, StringTypeNotNull>(
             name = "score",

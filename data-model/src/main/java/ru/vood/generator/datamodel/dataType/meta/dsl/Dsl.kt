@@ -8,7 +8,7 @@ import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 
-class MetaEntBuilder<ET : EntityTemplate<ET_ID_TYPE>, ET_ID_TYPE: DataType<*>> : Builder<MetaEnt<ET, ET_ID_TYPE>> {
+class MetaEntBuilder<ET : EntityTemplate<ET_ID_TYPE>, ET_ID_TYPE : DataType<*>> : Builder<MetaEnt<ET, ET_ID_TYPE>> {
     var name: EntityName = ""
     val propertyBuilder: MutableSet<MetaPropertyBuilder<*>> = mutableSetOf()
     val ck: MutableSet<MetaCk<ET>> = mutableSetOf()
@@ -63,14 +63,14 @@ class MetaEntBuilder<ET : EntityTemplate<ET_ID_TYPE>, ET_ID_TYPE: DataType<*>> :
     }
 }
 
-inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified R, reified ET_ID_TYPE: DataType<*>> MetaEntBuilder<ET, ET_ID_TYPE>.MetaPropertyBuilder<R>.withFun(
+inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified R, reified ET_ID_TYPE : DataType<*>> MetaEntBuilder<ET, ET_ID_TYPE>.MetaPropertyBuilder<R>.withFun(
     noinline f: GenerateFieldValueFunction<ET_ID_TYPE, R>
 ): MetaEntBuilder<ET, ET_ID_TYPE>.MetaPropertyBuilder<R> {
     this.function = f
     return this
 }
 
-inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified R, reified ET_ID_TYPE: DataType<*>> MetaEntBuilder<ET, ET_ID_TYPE>.MetaPropertyBuilder<R>.with(
+inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified R, reified ET_ID_TYPE : DataType<*>> MetaEntBuilder<ET, ET_ID_TYPE>.MetaPropertyBuilder<R>.with(
     crossinline f: GenerateFieldValueFunctionDsl<ET_ID_TYPE, R>
 ): MetaEntBuilder<ET, ET_ID_TYPE>.MetaPropertyBuilder<R> {
     this.function =
@@ -84,7 +84,7 @@ inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified R, reified ET
     return this
 }
 
-inline fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified ET_ID_TYPE: DataType<*>> entity(
+inline fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified ET_ID_TYPE : DataType<*>> entity(
     crossinline body: MetaEntBuilder<ET, ET_ID_TYPE>.() -> Unit
 ): ReadOnlyProperty<Nothing?, MetaEnt<ET, ET_ID_TYPE>> {
 
