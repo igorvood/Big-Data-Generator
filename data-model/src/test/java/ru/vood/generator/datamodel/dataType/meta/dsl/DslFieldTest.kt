@@ -75,7 +75,7 @@ internal class DslFieldTest {
                     .plusSeconds(et.id.hashCode().toLong() + pn.hashCode().toLong())
             }
 
-            val numGratherZeroCheck by check genVal { number(it) > BigDecimal(0) && riskSegmentOffline(it)!="ОЧЕНЬ РИСКОВАННЫЙ СЕГМЕНТ" }
+            val numGratherZeroCheck by check with { number(it) > BigDecimal(0) && riskSegmentOffline(it)!="ОЧЕНЬ РИСКОВАННЫЙ СЕГМЕНТ" }
         }
 
         assertEquals(expected.name, score.name)

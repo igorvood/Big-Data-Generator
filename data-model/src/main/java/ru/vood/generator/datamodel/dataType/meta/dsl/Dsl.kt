@@ -106,7 +106,7 @@ inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified R, reified ET
     return this
 }
 
-inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified ET_ID_TYPE : DataType<*>> MetaEntBuilder<ET, ET_ID_TYPE>.MetaCheckBuilder.genVal(
+inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified ET_ID_TYPE : DataType<*>> MetaEntBuilder<ET, ET_ID_TYPE>.MetaCheckBuilder.with(
     noinline f: (ET) -> Boolean
 ): MetaEntBuilder<ET, ET_ID_TYPE>.MetaCheckBuilder {
     this.checkFunction = f
