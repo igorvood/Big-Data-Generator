@@ -67,19 +67,16 @@ internal class DslTest {
         )
 
         val score by entity<ScoreDto, StringTypeNotNull> {
-            val riskSegmentOffline by STRING with { et, pn -> "${et.id}_$pn" }
-            val number by NUMBER with { et, pn -> BigDecimal(et.id.hashCode() + pn.hashCode()) }
-            val date by DATE with { et, pn ->
+            val riskSegmentOffline by STRING genVal { et, pn -> "${et.id}_$pn" }
+            val number by NUMBER genVal { et, pn -> BigDecimal(et.id.hashCode() + pn.hashCode()) }
+            val date by DATE genVal { et, pn ->
                 LocalDateTime
                     .of(1970, 1, 1, 12, 12)
                     .plusSeconds(et.id.hashCode().toLong() + pn.hashCode().toLong())
             }
 
-
+            val numGratherZeroCheck by check genVal { number(it) > BigDecimal(0) && riskSegmentOffline(it)!="ОЧЕНЬ РИСКОВАННЫЙ СЕГМЕНТ" }
         }
-
-
-
 
         assertEquals(expected.name, score.name)
         assertEquals(expected.property.map { it.name }.sorted(), score.property.map { it.name }.sorted())

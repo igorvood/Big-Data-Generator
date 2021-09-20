@@ -15,11 +15,15 @@ data class MetaEntity<T : EntityTemplate<ID_TYPE>, ID_TYPE : DataType<*>>
 data class MetaProperty<ID_TYPE : DataType<*>, OUT_TYPE>(
     val name: FieldName,
     val function: GenerateFieldValueFunction<ID_TYPE, OUT_TYPE>
-)
+) : (EntityTemplate<ID_TYPE>) -> OUT_TYPE {
+    override fun invoke(p1: EntityTemplate<ID_TYPE>): OUT_TYPE {
+        return function(p1, name).value()
+    }
+}
 
 data class MetaCheck<T>(
     val name: ConstraintName,
-    val checkFunction: ()->Boolean
+    val checkFunction: (T) -> Boolean
 )
 
 data class MetaFk<T>(

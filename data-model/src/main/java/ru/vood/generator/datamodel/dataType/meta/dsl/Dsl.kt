@@ -33,9 +33,11 @@ class MetaEntBuilder<ET : EntityTemplate<ET_ID_TYPE>, ET_ID_TYPE : DataType<*>> 
 
     inline fun <reified Z> set() = MetaPropertyBuilder<Set<Z>>()
 
+    val check = MetaCheckBuilder()
+
     inner class MetaCheckBuilder(
-        var name: ConstraintName,
-        var checkFunction: ()->Boolean = {true}
+        var name: ConstraintName = "",
+        var checkFunction: (ET) -> Boolean = { true }
     ) : Builder<MetaCheck<ET>> {
         override fun build(): MetaCheck<ET> {
             return MetaCheck(name, checkFunction)
@@ -47,10 +49,12 @@ class MetaEntBuilder<ET : EntityTemplate<ET_ID_TYPE>, ET_ID_TYPE : DataType<*>> 
         ): ReadOnlyProperty<Nothing?, MetaCheck<ET>> {
             name = property.name
             this@MetaEntBuilder.ck.add(this@MetaCheckBuilder)
-            TODO()
+            return ReadOnlyProperty { thisRef, property ->
+                return@ReadOnlyProperty this@MetaCheckBuilder.build()
+            }
         }
 
-        }
+    }
 
     inner class MetaPropertyBuilder<R>(
         var name: FieldName = "",
@@ -88,7 +92,7 @@ inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified R, reified ET
     return this
 }
 
-inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified R, reified ET_ID_TYPE : DataType<*>> MetaEntBuilder<ET, ET_ID_TYPE>.MetaPropertyBuilder<R>.with(
+inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified R, reified ET_ID_TYPE : DataType<*>> MetaEntBuilder<ET, ET_ID_TYPE>.MetaPropertyBuilder<R>.genVal(
     crossinline f: GenerateFieldValueFunctionDsl<ET_ID_TYPE, R>
 ): MetaEntBuilder<ET, ET_ID_TYPE>.MetaPropertyBuilder<R> {
     this.function =
@@ -101,6 +105,14 @@ inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified R, reified ET
         }
     return this
 }
+
+inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified ET_ID_TYPE : DataType<*>> MetaEntBuilder<ET, ET_ID_TYPE>.MetaCheckBuilder.genVal(
+    noinline f: (ET) -> Boolean
+): MetaEntBuilder<ET, ET_ID_TYPE>.MetaCheckBuilder {
+    this.checkFunction = f
+    return this
+}
+
 
 inline fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified ET_ID_TYPE : DataType<*>> entity(
     crossinline body: MetaEntBuilder<ET, ET_ID_TYPE>.() -> Unit
