@@ -30,9 +30,6 @@ class DslLasyTest {
         })
     }
 
-
-//    lateinit var checkF: (ScoreDto) -> Boolean
-
     @Test
     fun getName() {
         val score by entity<ScoreDto, StringTypeNotNull> {
