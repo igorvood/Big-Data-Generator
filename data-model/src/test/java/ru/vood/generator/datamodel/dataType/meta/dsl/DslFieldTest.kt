@@ -9,7 +9,7 @@ import ru.vood.generator.datamodel.dataType.meta.type.*
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
-internal class DslTest {
+internal class DslFieldTest {
 
     @BeforeEach
     fun setUp() {
@@ -25,7 +25,7 @@ internal class DslTest {
 
         val expected = MetaEntity<ScoreDto, StringTypeNotNull>(
             name = "score",
-            setOf<MetaProperty<StringTypeNotNull, *>>(
+            property = setOf<MetaProperty<StringTypeNotNull, *>>(
                 MetaProperty<StringTypeNotNull, LocalDateTime>("date",
                     object : GenerateFieldValueFunction<StringTypeNotNull, LocalDateTime> {
                         override fun invoke(
@@ -63,7 +63,7 @@ internal class DslTest {
                         }
                     }
                 )
-            )
+            ),
         )
 
         val score by entity<ScoreDto, StringTypeNotNull> {
@@ -83,7 +83,11 @@ internal class DslTest {
         val scoreDto = ScoreDto("1")
         val exp: List<Any?> = expected.property.sortedBy { it.name }.map { it.function(scoreDto, it.name).value() }
         val map: List<Any?> = score.property.sortedBy { it.name }.map { it.function(scoreDto, it.name).value() }
+
         assertEquals(exp, map)
+
+//        assertEquals(expected.ck.map { it.name  }.sorted(), score.ck.map { it.name  }.sorted())
+
 
     }
 
