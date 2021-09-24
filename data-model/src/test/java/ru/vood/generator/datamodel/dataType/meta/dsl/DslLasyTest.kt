@@ -32,7 +32,7 @@ class DslLasyTest {
 
     @Test
     fun getName() {
-        val score by entity<ScoreDto, StringTypeNotNull> {
+        val score: MetaEntity<ScoreDto, StringTypeNotNull> by entity<ScoreDto, StringTypeNotNull> {
             val riskSegmentOffline by STRING genVal riskSegmentOfflineFunction
             val number by NUMBER genVal numberFunction
             val date by DATE genVal dateFunction
@@ -40,7 +40,7 @@ class DslLasyTest {
             val checkFunction: (ScoreDto) -> Boolean =
                 { number(it) > BigDecimal(0) && riskSegmentOffline(it) != "ОЧЕНЬ РИСКОВАННЫЙ СЕГМЕНТ" }
 
-            val numGratherZeroCheck by check with checkFunction
+            val numGatherZeroCheck by check with checkFunction
         }
         confirmVerified(dateFunction, numberFunction, riskSegmentOfflineFunction)
         val scoreDto = ScoreDto("1")

@@ -28,6 +28,8 @@ class MetaEntBuilder<ET : EntityTemplate<ET_ID_TYPE>, ET_ID_TYPE : DataType<*>> 
     val NUMBER = number()
     fun date() = MetaPropertyBuilder<LocalDateTime>()
     val DATE = date()
+    fun bool() = MetaPropertyBuilder<Boolean>()
+    val BOOL = bool()
 
     inline fun <reified Z> ref() = MetaPropertyBuilder<Z>()
 
