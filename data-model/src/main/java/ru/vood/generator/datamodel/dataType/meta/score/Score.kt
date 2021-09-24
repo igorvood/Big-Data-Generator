@@ -20,32 +20,40 @@ object Score {
     }
 
 
-    fun <T> stdStr(): (EntityTemplate<T>, String) -> String = { et, pn -> "${et.id}_$pn" }
+    fun <T> stdStr(): (EntityTemplate<T>, String) -> String = { et, pn -> "${et.id.value()}_$pn" }
+    fun <T> stdBool(): (EntityTemplate<T>, String) -> Boolean = { et, pn -> "${et.id.value()}_$pn".hashCode() % 2 != 0 }
+    fun <T> stdNum(): (EntityTemplate<T>, String) -> BigDecimal =
+        { et, pn -> BigDecimal(kotlin.math.abs(et.id.hashCode() + pn.hashCode())) }
+
+    fun <T> stdDate(): (EntityTemplate<T>, String) -> LocalDateTime = { et, pn ->
+        LocalDateTime
+            .of(1970, 1, 1, 12, 12)
+            .plusSeconds(et.id.hashCode().toLong() + pn.hashCode().toLong())
+    }
 
 
-    fun standardMeta(): MetaEntity<String> {
-        val score: MetaEntity<String> by entity<String> {
-
+    fun standardScoreMeta(): MetaEntity<String> {
+        val score1 by entity<String> {
             val riskSegmentOffline by STRING genVal stdStr()
-            val riskSegmentOfflineDate by DATE genVal dateFunction
-            val merSign by BOOL genVal genBool
-            val thmSign by STRING genVal genStr
-            val mshFlg by STRING genVal genStr
-            val overCap by NUMBER genVal genNum
-            val wsRatingRestr by NUMBER genVal genNum
-            val ratingOffline by NUMBER genVal genNum
-            val ratingOfflinePrice by NUMBER genVal genNum
-            val ratingOfflineReserve by NUMBER genVal genNum
-            val cindex by NUMBER genVal genNum
-            val skeBase by NUMBER genVal genNum
-            val skeD0 by NUMBER genVal genNum
-            val skeOffline by NUMBER genVal genNum
-            val skeBcCap by NUMBER genVal genNum
-            val nonCurAssets by NUMBER genVal genNum
-            val opkFlag by NUMBER genVal genNum
+            val riskSegmentOfflineDate by DATE genVal stdDate()
+            val merSign by BOOL genVal stdBool()
+            val thmSign by STRING genVal stdStr()
+            val mshFlg by STRING genVal stdStr()
+            val overCap by NUMBER genVal stdNum()
+            val wsRatingRestr by NUMBER genVal stdNum()
+            val ratingOffline by NUMBER genVal stdNum()
+            val ratingOfflinePrice by NUMBER genVal stdNum()
+            val ratingOfflineReserve by NUMBER genVal stdNum()
+            val cindex by NUMBER genVal stdNum()
+            val skeBase by NUMBER genVal stdNum()
+            val skeD0 by NUMBER genVal stdNum()
+            val skeOffline by NUMBER genVal stdNum()
+            val skeBcCap by NUMBER genVal stdNum()
+            val nonCurAssets by NUMBER genVal stdNum()
+            val opkFlag by NUMBER genVal stdNum()
         }
-        return score
-   }
+        return score1
+    }
 
 }
 
