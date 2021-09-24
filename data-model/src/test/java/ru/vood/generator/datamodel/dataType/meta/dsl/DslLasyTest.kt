@@ -32,9 +32,9 @@ class DslLasyTest {
     @Test
     fun getName() {
         val score by entity<String> {
-            val riskSegmentOffline by STRING genVal riskSegmentOfflineFunction
-            val number by NUMBER genVal numberFunction
-            val date by DATE genVal dateFunction
+            val riskSegmentOffline by string() genVal riskSegmentOfflineFunction
+            val number by number() genVal numberFunction
+            val date by date() genVal dateFunction
 
             val numGatherZeroCheck by check with {
                 number(it) > BigDecimal(0) && riskSegmentOffline(it) != "ОЧЕНЬ РИСКОВАННЫЙ СЕГМЕНТ"

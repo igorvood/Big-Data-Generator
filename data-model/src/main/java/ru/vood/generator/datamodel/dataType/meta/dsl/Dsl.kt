@@ -24,13 +24,9 @@ class MetaEntBuilder<ET_ID> : Builder<MetaEntity<ET_ID>> {
     }
 
     fun string() = MetaPropertyBuilder<String>()
-    val STRING = string()
     fun number() = MetaPropertyBuilder<BigDecimal>()
-    val NUMBER = number()
     fun date() = MetaPropertyBuilder<LocalDateTime>()
-    val DATE = date()
     fun bool() = MetaPropertyBuilder<Boolean>()
-    val BOOL = bool()
 
     inline fun <reified Z> ref() = MetaPropertyBuilder<Z>()
 
@@ -85,7 +81,7 @@ class MetaEntBuilder<ET_ID> : Builder<MetaEntity<ET_ID>> {
     }
 }
 
-inline infix fun <reified ET : EntityTemplate<ET_ID_TYPE>, reified R, reified ET_ID_TYPE : DataType<*>> MetaEntBuilder<ET_ID_TYPE>.MetaPropertyBuilder<R>.withFun(
+inline infix fun <reified R, reified ET_ID_TYPE : DataType<*>> MetaEntBuilder<ET_ID_TYPE>.MetaPropertyBuilder<R>.withFun(
     noinline f: GenerateFieldValueFunction<ET_ID_TYPE, DataType<R>>
 ): MetaEntBuilder<ET_ID_TYPE>.MetaPropertyBuilder<R> {
     this.function = f

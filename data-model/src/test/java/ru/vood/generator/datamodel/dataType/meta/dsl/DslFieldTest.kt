@@ -67,9 +67,9 @@ internal class DslFieldTest {
         )
 
         val score by entity<String> {
-            val riskSegmentOffline by STRING genVal { et, pn -> "${et.id}_$pn" }
-            val number by NUMBER genVal { et, pn -> BigDecimal(et.id.hashCode() + pn.hashCode()) }
-            val date by DATE genVal { et, pn ->
+            val riskSegmentOffline by string() genVal { et, pn -> "${et.id}_$pn" }
+            val number by number() genVal { et, pn -> BigDecimal(et.id.hashCode() + pn.hashCode()) }
+            val date by date() genVal { et, pn ->
                 LocalDateTime
                     .of(1970, 1, 1, 12, 12)
                     .plusSeconds(et.id.hashCode().toLong() + pn.hashCode().toLong())
