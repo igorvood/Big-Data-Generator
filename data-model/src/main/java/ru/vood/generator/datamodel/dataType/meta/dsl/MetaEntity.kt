@@ -3,22 +3,20 @@ package ru.vood.generator.datamodel.dataType.meta.dsl
 import ru.vood.generator.datamodel.dataType.meta.type.DataType
 import ru.vood.generator.datamodel.dataType.meta.type.EntityTemplate
 
-data class MetaEntity<T : EntityTemplate<ID_TYPE>, ID_TYPE : DataType<*>>
+data class MetaEntity<ID_TYPE>
 //        where T: EntityTemplate<Q>
     (
     val name: EntityName,
     val property: Set<MetaProperty<ID_TYPE, *>>,
-    val ck: Set<MetaCheck<T>> = setOf(),
-    val fk: Set<MetaFk<T>> = setOf(),
+    val ck: Set<MetaCheck<EntityTemplate<ID_TYPE>>> = setOf(),
+    val fk: Set<MetaFk<EntityTemplate<ID_TYPE>>> = setOf(),
 )
 
-data class MetaProperty<ID_TYPE : DataType<*>, OUT_TYPE>(
+data class MetaProperty<ID_TYPE, OUT_TYPE>(
     val name: FieldName,
-    val function: GenerateFieldValueFunction<ID_TYPE, OUT_TYPE>
+    val function: GenerateFieldValueFunction<ID_TYPE, DataType<OUT_TYPE>>
 ) : (EntityTemplate<ID_TYPE>) -> OUT_TYPE {
-    override fun invoke(p1: EntityTemplate<ID_TYPE>): OUT_TYPE {
-        return function(p1, name).value()
-    }
+    override fun invoke(p1: EntityTemplate<ID_TYPE>): OUT_TYPE = function(p1, name).value()
 }
 
 data class MetaCheck<T>(

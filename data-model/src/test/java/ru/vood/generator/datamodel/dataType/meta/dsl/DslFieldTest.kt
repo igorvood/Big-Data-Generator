@@ -23,13 +23,13 @@ internal class DslFieldTest {
     fun getName() {
 
 
-        val expected = MetaEntity<ScoreDto, StringTypeNotNull>(
+        val expected = MetaEntity<String>(
             name = "score",
-            property = setOf<MetaProperty<StringTypeNotNull, *>>(
-                MetaProperty<StringTypeNotNull, LocalDateTime>("date",
-                    object : GenerateFieldValueFunction<StringTypeNotNull, LocalDateTime> {
+            property = setOf<MetaProperty<String, *>>(
+                MetaProperty<String, LocalDateTime>("date",
+                    object : GenerateFieldValueFunction<String,DataType< LocalDateTime>> {
                         override fun invoke(
-                            entityTemplate: EntityTemplate<StringTypeNotNull>,
+                            entityTemplate: EntityTemplate<String>,
                             propertyName: String
                         ): DataType<LocalDateTime> {
                             return DateType(
@@ -42,21 +42,21 @@ internal class DslFieldTest {
                         }
                     }
                 ),
-                MetaProperty<StringTypeNotNull, BigDecimal>("number",
-                    object : GenerateFieldValueFunction<StringTypeNotNull, BigDecimal> {
+                MetaProperty<String, BigDecimal>("number",
+                    object : GenerateFieldValueFunction<String, DataType<BigDecimal>> {
                         override fun invoke(
-                            entityTemplate: EntityTemplate<StringTypeNotNull>,
+                            entityTemplate: EntityTemplate<String>,
                             propertyName: String
                         ): DataType<BigDecimal> {
                             return NumberType(BigDecimal(entityTemplate.id.hashCode() + propertyName.hashCode()))
                         }
                     }
                 ),
-                MetaProperty<StringTypeNotNull, String>(
+                MetaProperty<String, String>(
                     "riskSegmentOffline",
-                    object : GenerateFieldValueFunction<StringTypeNotNull, String> {
+                    object : GenerateFieldValueFunction<String, DataType<String>> {
                         override fun invoke(
-                            entityTemplate: EntityTemplate<StringTypeNotNull>,
+                            entityTemplate: EntityTemplate<String>,
                             propertyName: String
                         ): DataType<String> {
                             return StringTypeNotNull("${entityTemplate.id}_$propertyName")
@@ -66,7 +66,7 @@ internal class DslFieldTest {
             ),
         )
 
-        val score by entity<ScoreDto, StringTypeNotNull> {
+        val score by entity<String> {
             val riskSegmentOffline by STRING genVal { et, pn -> "${et.id}_$pn" }
             val number by NUMBER genVal { et, pn -> BigDecimal(et.id.hashCode() + pn.hashCode()) }
             val date by DATE genVal { et, pn ->
@@ -75,12 +75,12 @@ internal class DslFieldTest {
                     .plusSeconds(et.id.hashCode().toLong() + pn.hashCode().toLong())
             }
 
-            val numGratherZeroCheck by check with { number(it) > BigDecimal(0) && riskSegmentOffline(it)!="ОЧЕНЬ РИСКОВАННЫЙ СЕГМЕНТ" }
+//            val numGratherZeroCheck by check with { number(it) > BigDecimal(0) && riskSegmentOffline(it)!="ОЧЕНЬ РИСКОВАННЫЙ СЕГМЕНТ" }
         }
 
         assertEquals(expected.name, score.name)
         assertEquals(expected.property.map { it.name }.sorted(), score.property.map { it.name }.sorted())
-        val scoreDto = ScoreDto("1")
+        val scoreDto = ScoreDto("1",score)
         val exp: List<Any?> = expected.property.sortedBy { it.name }.map { it.function(scoreDto, it.name).value() }
         val map: List<Any?> = score.property.sortedBy { it.name }.map { it.function(scoreDto, it.name).value() }
 
