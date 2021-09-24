@@ -43,7 +43,7 @@ class DslLasyTest {
             val numGatherZeroCheck by check with checkFunction
         }
         confirmVerified(dateFunction, numberFunction, riskSegmentOfflineFunction)
-        val scoreDto = ScoreDto("1")
+        val scoreDto = ScoreDto("1",score)
         val b = score.ck.map { it.checkFunction(scoreDto) }[0]
         Assertions.assertEquals(true, b)
         verify {

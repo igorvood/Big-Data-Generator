@@ -15,8 +15,8 @@ fun convId(id: LkPk): DataType<Pair<String, ScoreDto>> {
     }
 }
 
-class LkFunctionalDto(
-    id: LkPk,
-) : EntityTemplate<DataTypeLkPkId>(convId(id))
+//class LkFunctionalDto(
+//    id: LkPk,
+//) : EntityTemplate<DataTypeLkPkId>(convId(id))
 
 

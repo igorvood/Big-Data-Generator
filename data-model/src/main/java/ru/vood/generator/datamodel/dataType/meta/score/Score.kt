@@ -22,7 +22,7 @@ object Score {
 
 
     fun standardMeta(): MetaEntity<ScoreDto, StringTypeNotNull> {
-        val score by entity<ScoreDto, StringTypeNotNull> {
+        val score: MetaEntity<ScoreDto, StringTypeNotNull> by entity<ScoreDto, StringTypeNotNull> {
 
             val riskSegmentOffline by STRING genVal genStr
             val riskSegmentOfflineDate by DATE genVal dateFunction
