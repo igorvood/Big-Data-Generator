@@ -1,7 +1,7 @@
-package ru.vood.generator.datamodel.dataType.meta.dsl
+package ru.vood.generator.datamodel.templatedto.dsl
 
-import ru.vood.generator.datamodel.dataType.meta.type.DataType
-import ru.vood.generator.datamodel.dataType.meta.type.EntityTemplate
+import ru.vood.generator.datamodel.templatedto.DataType
+import ru.vood.generator.datamodel.templatedto.EntityTemplate
 
 data class MetaEntity<ID_TYPE>
 //        where T: EntityTemplate<Q>

@@ -1,23 +1,23 @@
-package ru.vood.generator.datamodel.dataType.meta.dsl
+package ru.vood.generator.datamodel.templatedto.dsl
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import io.mockk.InternalPlatformDsl.toStr
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import ru.vood.generator.datamodel.dataType.meta.score.Score.standardScoreMeta
-import ru.vood.generator.datamodel.dataType.meta.score.ScoreDto
-import ru.vood.generator.datamodel.util.function.StandardFunction.genEntityData
+import ru.vood.generator.datamodel.templatedto.meta.score.Score.standardScoreMeta
+import ru.vood.generator.datamodel.templatedto.meta.score.ScoreDto
+import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.genEntityData
 import java.io.File
 
 class GenTest {
     lateinit var meta: MetaEntity<String>
     lateinit var gen: Set<ScoreDto>
 
-        val endInclusive = 16_000
+//        val endInclusive = 16_000
 //    val endInclusive = 20_000_000
 //    val endInclusive = 2000
-//    val endInclusive = 2
+    val endInclusive = 2
 
     @BeforeEach
     private fun setup() {

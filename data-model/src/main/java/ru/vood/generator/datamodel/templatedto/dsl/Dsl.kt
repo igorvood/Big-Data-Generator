@@ -1,8 +1,7 @@
-package ru.vood.generator.datamodel.dataType.meta.dsl
+package ru.vood.generator.datamodel.templatedto.dsl
 
-import ru.vood.generator.datamodel.dataType.meta.type.DataType
-import ru.vood.generator.datamodel.dataType.meta.type.EntityTemplate
-import ru.vood.generator.datamodel.dataType.meta.type.StringTypeNotNull
+import ru.vood.generator.datamodel.templatedto.DataType
+import ru.vood.generator.datamodel.templatedto.EntityTemplate
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import kotlin.properties.ReadOnlyProperty

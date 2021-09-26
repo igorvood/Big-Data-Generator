@@ -1,4 +1,4 @@
-package ru.vood.generator.datamodel.dataType.meta.dsl
+package ru.vood.generator.datamodel.templatedto.dsl
 
 import io.mockk.confirmVerified
 import io.mockk.spyk
@@ -6,8 +6,8 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import ru.vood.generator.datamodel.dataType.meta.score.ScoreDto
-import ru.vood.generator.datamodel.dataType.meta.type.EntityTemplate
+import ru.vood.generator.datamodel.templatedto.meta.score.ScoreDto
+import ru.vood.generator.datamodel.templatedto.EntityTemplate
 import java.math.BigDecimal
 import java.time.LocalDateTime
 

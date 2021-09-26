@@ -1,7 +1,7 @@
-package ru.vood.generator.datamodel.dataType.meta.dsl
+package ru.vood.generator.datamodel.templatedto.dsl
 
-import ru.vood.generator.datamodel.dataType.meta.type.DataType
-import ru.vood.generator.datamodel.dataType.meta.type.EntityTemplate
+import ru.vood.generator.datamodel.templatedto.DataType
+import ru.vood.generator.datamodel.templatedto.EntityTemplate
 
 typealias GenerateIdValueFunction<T> = () -> DataType<T>
 typealias GenerateFieldValueFunction<ID_TYPE, OUT_TYPE> = (EntityTemplate<ID_TYPE>, String) -> OUT_TYPE

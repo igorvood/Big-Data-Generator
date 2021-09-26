@@ -1,19 +1,19 @@
-package ru.vood.generator.datamodel.dataType.meta.lk
+package ru.vood.generator.datamodel.templatedto.meta.lk
 
-import ru.vood.generator.datamodel.dataType.meta.client.ClfDataStructure.standardClfMeta
-import ru.vood.generator.datamodel.dataType.meta.client.ClfDto
-import ru.vood.generator.datamodel.dataType.meta.client.Client
-import ru.vood.generator.datamodel.dataType.meta.client.CluDataStructure.standardCluMeta
-import ru.vood.generator.datamodel.dataType.meta.client.CluDto
-import ru.vood.generator.datamodel.dataType.meta.dsl.MetaEntity
-import ru.vood.generator.datamodel.dataType.meta.dsl.entity
-import ru.vood.generator.datamodel.dataType.meta.dsl.genVal
-import ru.vood.generator.datamodel.dataType.meta.lkc.LkcDataStructure.standardLkcMeta
-import ru.vood.generator.datamodel.dataType.meta.lkc.LkcDto
-import ru.vood.generator.datamodel.dataType.meta.type.DataType
-import ru.vood.generator.datamodel.dataType.meta.type.EntityTemplate
-import ru.vood.generator.datamodel.util.function.StandardFunction.dictVal
-import ru.vood.generator.datamodel.util.function.StandardFunction.genOneEntityData
+import ru.vood.generator.datamodel.templatedto.meta.client.ClfDataStructure.standardClfMeta
+import ru.vood.generator.datamodel.templatedto.meta.client.ClfDto
+import ru.vood.generator.datamodel.templatedto.meta.client.Client
+import ru.vood.generator.datamodel.templatedto.meta.client.CluDataStructure.standardCluMeta
+import ru.vood.generator.datamodel.templatedto.meta.client.CluDto
+import ru.vood.generator.datamodel.templatedto.dsl.MetaEntity
+import ru.vood.generator.datamodel.templatedto.dsl.entity
+import ru.vood.generator.datamodel.templatedto.dsl.genVal
+import ru.vood.generator.datamodel.templatedto.meta.lkc.LkcDataStructure.standardLkcMeta
+import ru.vood.generator.datamodel.templatedto.meta.lkc.LkcDto
+import ru.vood.generator.datamodel.templatedto.DataType
+import ru.vood.generator.datamodel.templatedto.EntityTemplate
+import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.dictVal
+import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.genOneEntityData
 
 object LkDataStructure {
 

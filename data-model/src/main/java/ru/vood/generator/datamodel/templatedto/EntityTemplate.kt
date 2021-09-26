@@ -1,8 +1,8 @@
-package ru.vood.generator.datamodel.dataType.meta.type
+package ru.vood.generator.datamodel.templatedto
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import ru.vood.generator.datamodel.dataType.meta.dsl.MetaEntity
+import ru.vood.generator.datamodel.templatedto.dsl.MetaEntity
 import java.math.BigDecimal
 import java.time.LocalDateTime
 

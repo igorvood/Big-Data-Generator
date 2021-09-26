@@ -1,10 +1,10 @@
-package ru.vood.generator.datamodel.dataType.meta.client
+package ru.vood.generator.datamodel.templatedto.meta.client
 
-import ru.vood.generator.datamodel.dataType.meta.dsl.MetaEntity
-import ru.vood.generator.datamodel.dataType.meta.dsl.entity
-import ru.vood.generator.datamodel.dataType.meta.dsl.genVal
-import ru.vood.generator.datamodel.util.function.StandardFunction.stdDate
-import ru.vood.generator.datamodel.util.function.StandardFunction.stdStr
+import ru.vood.generator.datamodel.templatedto.dsl.MetaEntity
+import ru.vood.generator.datamodel.templatedto.dsl.entity
+import ru.vood.generator.datamodel.templatedto.dsl.genVal
+import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.stdDate
+import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.stdStr
 
 object CluDataStructure {
 

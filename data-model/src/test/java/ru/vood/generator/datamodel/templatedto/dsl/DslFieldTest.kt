@@ -1,11 +1,13 @@
-package ru.vood.generator.datamodel.dataType.meta.dsl
+package ru.vood.generator.datamodel.templatedto.dsl
 
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import ru.vood.generator.datamodel.dataType.meta.score.ScoreDto
+import ru.vood.generator.datamodel.templatedto.meta.score.ScoreDto
 import ru.vood.generator.datamodel.dataType.meta.type.*
+import ru.vood.generator.datamodel.templatedto.DataType
+import ru.vood.generator.datamodel.templatedto.EntityTemplate
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
@@ -27,7 +29,7 @@ internal class DslFieldTest {
             name = "score",
             property = setOf<MetaProperty<String, *>>(
                 MetaProperty<String, LocalDateTime>("date",
-                    object : GenerateFieldValueFunction<String,DataType< LocalDateTime>> {
+                    object : GenerateFieldValueFunction<String, DataType<LocalDateTime>> {
                         override fun invoke(
                             entityTemplate: EntityTemplate<String>,
                             propertyName: String
