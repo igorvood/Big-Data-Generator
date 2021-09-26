@@ -3,13 +3,10 @@ package ru.vood.generator.datamodel.dataType.meta.score
 import ru.vood.generator.datamodel.dataType.meta.dsl.MetaEntity
 import ru.vood.generator.datamodel.dataType.meta.dsl.entity
 import ru.vood.generator.datamodel.dataType.meta.dsl.genVal
-import ru.vood.generator.datamodel.dataType.meta.type.EntityTemplate
 import ru.vood.generator.datamodel.util.function.StandardFunction.stdBool
 import ru.vood.generator.datamodel.util.function.StandardFunction.stdDate
 import ru.vood.generator.datamodel.util.function.StandardFunction.stdNum
 import ru.vood.generator.datamodel.util.function.StandardFunction.stdStr
-import java.math.BigDecimal
-import java.time.LocalDateTime
 
 object Score {
     fun standardScoreMeta(): MetaEntity<String> {
