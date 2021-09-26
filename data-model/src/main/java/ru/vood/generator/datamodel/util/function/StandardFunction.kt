@@ -30,7 +30,7 @@ object StandardFunction {
             .plusSeconds(et.id.hashCode().toLong() + pn.hashCode().toLong())
     }
 
-    inline fun <reified ID_TYPE, reified T> genFixedCount(
+    inline fun <reified ID_TYPE, reified T> genEntityData(
         meta: MetaEntity<ID_TYPE>,
         idGenerator: () -> Set<ID_TYPE>,
         init: (ID_TYPE, MetaEntity<ID_TYPE>) -> T,
@@ -38,4 +38,14 @@ object StandardFunction {
             where T : EntityTemplate<ID_TYPE> {
         return idGenerator().map { init(it, meta) }.toSet()
     }
+
+    inline fun <reified ID_TYPE, reified T> genOneEntityData(
+        meta: MetaEntity<ID_TYPE>,
+        idGenerator: () -> ID_TYPE,
+        init: (ID_TYPE, MetaEntity<ID_TYPE>) -> T,
+    ): T
+            where T : EntityTemplate<ID_TYPE> {
+        return init(idGenerator(), meta)
+    }
+
 }
