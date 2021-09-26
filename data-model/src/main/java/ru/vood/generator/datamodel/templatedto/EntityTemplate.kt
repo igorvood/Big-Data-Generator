@@ -20,6 +20,13 @@ abstract class EntityTemplate<ID_TYPE>(
     override fun value(): EntityTemplate<ID_TYPE> = this
 
     fun getJson(): JsonObject {
+        meta.ck.forEach { ck->
+            val (name, function) = ck
+            val checkFunction = function(this)
+            if (!checkFunction){
+                error("Проверка $name не прошла")
+            }
+        }
         val jsonObject = JsonObject()
         this.meta.property.forEach { prop ->
             val value = prop.function(this, prop.name)

@@ -1,12 +1,9 @@
 package ru.vood.generator.datamodel.templatedto.meta.lk
 
-import ru.vood.generator.datamodel.templatedto.DataType
 import ru.vood.generator.datamodel.templatedto.EntityTemplate
-import ru.vood.generator.datamodel.templatedto.dsl.MetaEntity
+import ru.vood.generator.datamodel.templatedto.dsl.*
 import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.dictVal
 import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.genOneEntityData
-import ru.vood.generator.datamodel.templatedto.dsl.entity
-import ru.vood.generator.datamodel.templatedto.dsl.genVal
 import ru.vood.generator.datamodel.templatedto.meta.client.ClfDataStructure.standardClfMeta
 import ru.vood.generator.datamodel.templatedto.meta.client.ClfDto
 import ru.vood.generator.datamodel.templatedto.meta.client.Client
@@ -26,16 +23,15 @@ object LkDataStructure {
     }
 
     private fun clientVal(
-        fClType: (EntityTemplate<String>, String) -> DataType<String>,
-        fId: (EntityTemplate<String>, String) -> DataType<String>
-    ): (EntityTemplate<String>, String) -> Client =
-        { et, pn ->
-            when (val type = fClType(et, pn).value()) {
-                CLU -> CluDto(fId(et, pn).value(), standardCluMeta())
-                CLF -> ClfDto(fId(et, pn).value(), standardClfMeta())
-                else -> error("тип $type не поддерживается")
-            }
+        typeClientProp: MetaProperty<String, String>,
+        idFrom1: MetaProperty<String, String>
+    ): (EntityTemplate<String>, String) -> Client = { et, pn ->
+        when (val type = typeClientProp(et)) {
+            CLU -> CluDto(idFrom1(et), standardCluMeta())
+            CLF -> ClfDto(idFrom1(et), standardClfMeta())
+            else -> error("тип $type не поддерживается")
         }
+    }
 
 
     fun standardLkMeta(): MetaEntity<String> {
@@ -55,8 +51,19 @@ object LkDataStructure {
                     { pk, meta -> LkcDto(pk, meta) })
             }
 
-            val idFromRef by ref<Client>() genVal clientVal(tFrom.function, idFrom.function)
-            val idToRef by ref<Client>() genVal clientVal(tTo.function, idTo.function)
+            //            val idFromRef by ref<Client>() genVal clientVal(tFrom.function, idFrom.function)
+
+
+            val idFromRef by ref<Client>() genVal clientVal(tFrom, idFrom)
+            val idToRef by ref<Client>() genVal clientVal(tTo, idTo)
+
+            val ckIdFromRef by check with { et ->
+                idFrom(et) == idFromRef(et).id.value()
+            }
+            val ckIdToRef by check with { et ->
+                idTo(et) == idToRef(et).id.value()
+            }
+
         }
         return score1
     }
