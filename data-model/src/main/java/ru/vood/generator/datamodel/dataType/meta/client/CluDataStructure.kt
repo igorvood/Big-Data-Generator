@@ -1,4 +1,4 @@
-package ru.vood.generator.datamodel.dataType.meta.clu
+package ru.vood.generator.datamodel.dataType.meta.client
 
 import ru.vood.generator.datamodel.dataType.meta.dsl.MetaEntity
 import ru.vood.generator.datamodel.dataType.meta.dsl.entity

@@ -1,7 +1,7 @@
 package ru.vood.generator.datamodel.dataType.meta.score
 
-import ru.vood.generator.datamodel.dataType.meta.clu.CluDataStructure.standardCluMeta
-import ru.vood.generator.datamodel.dataType.meta.clu.CluDto
+import ru.vood.generator.datamodel.dataType.meta.client.CluDataStructure.standardCluMeta
+import ru.vood.generator.datamodel.dataType.meta.client.CluDto
 import ru.vood.generator.datamodel.dataType.meta.dsl.MetaEntity
 import ru.vood.generator.datamodel.dataType.meta.dsl.entity
 import ru.vood.generator.datamodel.dataType.meta.dsl.genVal
