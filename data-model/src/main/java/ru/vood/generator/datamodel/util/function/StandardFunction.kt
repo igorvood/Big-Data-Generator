@@ -48,4 +48,9 @@ object StandardFunction {
         return init(idGenerator(), meta)
     }
 
+    inline fun <reified ID_TYPE, reified T>  genIdForRef(): T{
+
+        TODO()
+    }
+
 }

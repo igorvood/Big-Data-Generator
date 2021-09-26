@@ -6,8 +6,8 @@ import ru.vood.generator.datamodel.dataType.meta.type.EntityTemplate
 
 typealias CluPk = Pair<String, EntityTemplate<String>>
 
-class CluDto(id: CluPk, meta: MetaEntity<CluPk>) :
-    EntityTemplate<CluPk>(id, meta)
+class CluDto(id: String, meta: MetaEntity<String>) :
+    EntityTemplate<String>(id, meta)
 
 
 

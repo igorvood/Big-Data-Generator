@@ -2,10 +2,12 @@ package ru.vood.generator.datamodel.dataType.meta.score
 
 import ru.vood.generator.datamodel.dataType.meta.clu.CluDataStructure.standardCluMeta
 import ru.vood.generator.datamodel.dataType.meta.clu.CluDto
-import ru.vood.generator.datamodel.dataType.meta.clu.CluPk
 import ru.vood.generator.datamodel.dataType.meta.dsl.MetaEntity
 import ru.vood.generator.datamodel.dataType.meta.dsl.entity
 import ru.vood.generator.datamodel.dataType.meta.dsl.genVal
+import ru.vood.generator.datamodel.dataType.meta.lk.LkDataStructure.standardLkMeta
+import ru.vood.generator.datamodel.dataType.meta.lkc.LkcDto
+import ru.vood.generator.datamodel.util.function.StandardFunction.genEntityData
 import ru.vood.generator.datamodel.util.function.StandardFunction.genOneEntityData
 import ru.vood.generator.datamodel.util.function.StandardFunction.stdBool
 import ru.vood.generator.datamodel.util.function.StandardFunction.stdDate
@@ -15,6 +17,7 @@ import ru.vood.generator.datamodel.util.function.StandardFunction.stdStr
 object Score {
     fun standardScoreMeta(): MetaEntity<String> {
         val score1 by entity<String> {
+            val id by string() genVal { q, w -> q.id.value() }
             val riskSegmentOffline by string() genVal stdStr()
             val riskSegmentOfflineDate by date() genVal stdDate()
             val merSign by bool() genVal stdBool()
@@ -34,7 +37,14 @@ object Score {
             val opkFlag by number() genVal stdNum()
 
             val clu by ref<CluDto>() genVal { q, w ->
-                genOneEntityData(standardCluMeta(), { CluPk("1", q) }, { pk, meta -> CluDto(pk, meta) })
+                genOneEntityData(standardCluMeta(), { "${id(q)}_SCORE" }, { pk, meta -> CluDto(pk, meta) })
+            }
+
+            val lks by set<LkcDto>() genVal { et, pn ->
+                genEntityData(
+                    standardLkMeta(),
+                    { IntRange(1, 10).map { """${et.id.value()}_$it""" }.toSet() },
+                    { pk, meta -> LkcDto(pk, meta) })
             }
 
         }

@@ -8,8 +8,8 @@ import ru.vood.generator.datamodel.util.function.StandardFunction.stdStr
 
 object CluDataStructure {
 
-    fun standardCluMeta(): MetaEntity<CluPk> {
-        val score1 by entity<CluPk> {
+    fun standardCluMeta(): MetaEntity<String> {
+        val score1 by entity<String> {
             val crmId by string() genVal stdStr()
             val orgId by string() genVal stdStr()
             val inn by string() genVal stdStr()
@@ -59,23 +59,6 @@ object CluDataStructure {
             val crmTopGSZId by string() genVal stdStr()
             val crmGSZId by string() genVal stdStr()
 
-/*            val riskSegmentOffline by string() genVal stdStr()
-            val riskSegmentOfflineDate by date() genVal stdDate()
-            val merSign by bool() genVal stdBool()
-            val thmSign by string() genVal stdStr()
-            val mshFlg by string() genVal stdStr()
-            val overCap by number() genVal stdNum()
-            val wsRatingRestr by number() genVal stdNum()
-            val ratingOffline by number() genVal stdNum()
-            val ratingOfflinePrice by number() genVal stdNum()
-            val ratingOfflineReserve by number() genVal stdNum()
-            val cindex by number() genVal stdNum()
-            val skeBase by number() genVal stdNum()
-            val skeD0 by number() genVal stdNum()
-            val skeOffline by number() genVal stdNum()
-            val skeBcCap by number() genVal stdNum()
-            val nonCurAssets by number() genVal stdNum()
-            val opkFlag by number() genVal stdNum()*/
         }
         return score1
     }
