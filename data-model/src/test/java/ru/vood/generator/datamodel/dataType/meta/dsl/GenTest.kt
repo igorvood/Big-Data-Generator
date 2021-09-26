@@ -20,8 +20,6 @@ class GenTest {
             gen.withIndex().forEach { score ->
                 val (i, scoreDto) = score
                 val property = scoreDto.meta.property
-//                val message = property.first { it.name == "riskSegmentOffline" }
-//                val joinToString = property.map { out.print(it(scoreDto)) }.joinToString(";")
                 property.forEach { out.println("""${it.name}   ->   ${it(scoreDto)}""") }
                 out.println("--------------------------------")
             }
