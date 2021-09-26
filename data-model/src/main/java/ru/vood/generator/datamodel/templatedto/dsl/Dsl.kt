@@ -88,7 +88,7 @@ inline infix fun <reified R, reified ET_ID_TYPE : DataType<*>> MetaEntBuilder<ET
 }
 
 
-inline infix fun <reified R, reified ET_ID_TYPE > MetaEntBuilder<ET_ID_TYPE>.MetaPropertyBuilder<R>.genVal(
+inline infix fun <reified R, reified ET_ID_TYPE> MetaEntBuilder<ET_ID_TYPE>.MetaPropertyBuilder<R>.genVal(
     crossinline f: GenerateFieldValueFunctionDsl<ET_ID_TYPE, R>
 ): MetaEntBuilder<ET_ID_TYPE>.MetaPropertyBuilder<R> {
     this.function =

@@ -1,18 +1,18 @@
 package ru.vood.generator.datamodel.templatedto.meta.score
 
-import ru.vood.generator.datamodel.templatedto.meta.client.CluDataStructure.standardCluMeta
-import ru.vood.generator.datamodel.templatedto.meta.client.CluDto
 import ru.vood.generator.datamodel.templatedto.dsl.MetaEntity
-import ru.vood.generator.datamodel.templatedto.dsl.entity
-import ru.vood.generator.datamodel.templatedto.dsl.genVal
-import ru.vood.generator.datamodel.templatedto.meta.lk.LkDataStructure.standardLkMeta
-import ru.vood.generator.datamodel.templatedto.meta.lkc.LkcDto
 import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.genEntityData
 import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.genOneEntityData
 import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.stdBool
 import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.stdDate
 import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.stdNum
 import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.stdStr
+import ru.vood.generator.datamodel.templatedto.dsl.entity
+import ru.vood.generator.datamodel.templatedto.dsl.genVal
+import ru.vood.generator.datamodel.templatedto.meta.client.CluDataStructure.standardCluMeta
+import ru.vood.generator.datamodel.templatedto.meta.client.CluDto
+import ru.vood.generator.datamodel.templatedto.meta.lk.LkDataStructure.standardLkMeta
+import ru.vood.generator.datamodel.templatedto.meta.lkc.LkcDto
 
 object Score {
     fun standardScoreMeta(): MetaEntity<String> {

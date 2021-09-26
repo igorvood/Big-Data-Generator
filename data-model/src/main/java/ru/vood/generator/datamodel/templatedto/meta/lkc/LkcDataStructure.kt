@@ -1,10 +1,10 @@
 package ru.vood.generator.datamodel.templatedto.meta.lkc
 
 import ru.vood.generator.datamodel.templatedto.dsl.MetaEntity
-import ru.vood.generator.datamodel.templatedto.dsl.entity
-import ru.vood.generator.datamodel.templatedto.dsl.genVal
 import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.dictVal
 import ru.vood.generator.datamodel.templatedto.dsl.StandardFunction.rangeVal
+import ru.vood.generator.datamodel.templatedto.dsl.entity
+import ru.vood.generator.datamodel.templatedto.dsl.genVal
 import java.math.BigDecimal
 
 object LkcDataStructure {
