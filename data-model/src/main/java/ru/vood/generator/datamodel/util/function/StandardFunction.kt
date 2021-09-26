@@ -7,6 +7,11 @@ import java.time.LocalDateTime
 import kotlin.math.abs
 
 object StandardFunction {
+
+    inline fun <reified T> hash(et: EntityTemplate<T>, pn: String): Int =
+        abs(et.id.value().hashCode() + pn.hashCode())
+
+
     val genBool: (EntityTemplate<String>, String) -> Boolean =
         { et, pn -> "${et.id}_$pn".hashCode() % 2 != 0 }
     val genStr: (EntityTemplate<String>, String) -> String = { et, pn -> "${et.id}_$pn" }
@@ -19,16 +24,27 @@ object StandardFunction {
     }
 
 
-    fun <T> stdStr(): (EntityTemplate<T>, String) -> String = { et, pn -> "${et.id.value()}_$pn" }
-    fun <T> stdBool(): (EntityTemplate<T>, String) -> Boolean = { et, pn -> "${et.id.value()}_$pn".hashCode() % 2 != 0 }
-    fun <T> stdNum(): (EntityTemplate<T>, String) -> BigDecimal =
+    inline fun <reified T> stdStr(): (EntityTemplate<T>, String) -> String = { et, pn -> "${et.id.value()}_$pn" }
+    inline fun <reified T> stdBool(): (EntityTemplate<T>, String) -> Boolean =
+        { et, pn -> "${et.id.value()}_$pn".hashCode() % 2 != 0 }
+
+    inline fun <reified T> stdNum(): (EntityTemplate<T>, String) -> BigDecimal =
         { et, pn -> BigDecimal(abs(et.id.hashCode() + pn.hashCode())) }
 
-    fun <T> stdDate(): (EntityTemplate<T>, String) -> LocalDateTime = { et, pn ->
+    inline fun <reified T> stdDate(): (EntityTemplate<T>, String) -> LocalDateTime = { et, pn ->
         LocalDateTime
             .of(1970, 1, 1, 12, 12)
             .plusSeconds(et.id.hashCode().toLong() + pn.hashCode().toLong())
     }
+
+    inline fun <reified T, reified R> dictVal(dict: List<R>): (EntityTemplate<T>, String) -> R = { et, pn ->
+        dict[hash(et, pn) % dict.size]
+    }
+
+    inline fun <reified T> rangeVal(min: BigDecimal, max: BigDecimal): (EntityTemplate<T>, String) -> BigDecimal =
+        { et, pn ->
+            min + (hash(et, pn) % (max - min).toInt()).toBigDecimal()
+        }
 
     inline fun <reified ID_TYPE, reified T> genEntityData(
         meta: MetaEntity<ID_TYPE>,
@@ -46,11 +62,6 @@ object StandardFunction {
     ): T
             where T : EntityTemplate<ID_TYPE> {
         return init(idGenerator(), meta)
-    }
-
-    inline fun <reified ID_TYPE, reified T>  genIdForRef(): T{
-
-        TODO()
     }
 
 }

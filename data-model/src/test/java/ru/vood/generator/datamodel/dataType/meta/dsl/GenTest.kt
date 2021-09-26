@@ -14,10 +14,10 @@ class GenTest {
     lateinit var meta: MetaEntity<String>
     lateinit var gen: Set<ScoreDto>
 
-        val endInclusive = 16_000
+//        val endInclusive = 16_000
 //    val endInclusive = 20_000_000
 //    val endInclusive = 2000
-//    val endInclusive = 2
+    val endInclusive = 2
 
     @BeforeEach
     private fun setup() {
