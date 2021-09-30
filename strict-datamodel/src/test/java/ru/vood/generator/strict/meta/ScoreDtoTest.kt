@@ -18,7 +18,12 @@ internal class ScoreDtoTest {
 
     @Test
     fun getF1() {
+        val toList = IntRange(1, 20).map { ScoreDto("$it") }.toList()
         val scoreDto = ScoreDto("1")
+        val scoreDto2 = ScoreDto("2")
         println(scoreDto)
+        println(scoreDto2)
+        println(toList)
+
     }
 }

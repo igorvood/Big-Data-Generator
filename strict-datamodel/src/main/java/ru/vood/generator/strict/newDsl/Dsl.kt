@@ -5,6 +5,7 @@ import ru.vood.generator.strict.dsl.GenerateFieldValueFunction
 import ru.vood.generator.strict.dsl.GenerateFieldValueFunctionDsl
 import ru.vood.generator.strict.dsl.MetaProperty
 
+/*
 inline fun <reified ET> string() = PropBuilder<ET, String>()
 
 inline infix fun <reified ET_ID_TYPE, reified R> PropBuilder<ET_ID_TYPE, R>.genVal(
@@ -21,4 +22,4 @@ inline infix fun <reified ET_ID_TYPE, reified R> PropBuilder<ET_ID_TYPE, R>.genV
 
 inline fun <reified ET_ID_TYPE, reified R> MetaProperty<ET_ID_TYPE, R>.getFun(): GenerateFieldValueFunction<ET_ID_TYPE, DataType<R>> {
     return this.function
-}
+}*/

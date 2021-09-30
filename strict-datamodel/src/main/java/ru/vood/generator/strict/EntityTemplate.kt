@@ -1,6 +1,8 @@
 package ru.vood.generator.strict
 
 import ru.vood.generator.strict.dsl.*
+import java.math.BigDecimal
+import java.time.LocalDateTime
 
 import java.util.*
 import kotlin.properties.ReadOnlyProperty
@@ -11,7 +13,7 @@ abstract class EntityTemplate<ID_TYPE>(
     id: ID_TYPE,
 ) : DataType<EntityTemplate<ID_TYPE>> {
 
-    private val meta: TreeSet<MetaProperty<ID_TYPE, *>> = sortedSetOf()
+    private val meta: TreeMap<String, GenerateFieldValueFunction<ID_TYPE, DataType<*>>> = TreeMap()
 
     val id: DataType<ID_TYPE> = object : DataType<ID_TYPE> {
         override fun invoke(): ID_TYPE = id
@@ -21,7 +23,7 @@ abstract class EntityTemplate<ID_TYPE>(
     override fun invoke(): EntityTemplate<ID_TYPE> = this
 
     internal fun addProp(build: MetaProperty<ID_TYPE, *>) {
-        meta.add(build)
+        meta[build.name] = build.function
     }
 
 //    internal fun addProp(build: Any){
@@ -29,6 +31,11 @@ abstract class EntityTemplate<ID_TYPE>(
 //    }
 
     fun string() = PropBuilder<String>()
+    fun number() = PropBuilder<BigDecimal>()
+    fun date() = PropBuilder<LocalDateTime>()
+    fun bool() = PropBuilder<Boolean>()
+    inline fun <reified Z> ref() = PropBuilder<Z>()
+    inline fun <reified Z> set() = PropBuilder<Set<Z>>()
 
     inline infix fun <reified R> PropBuilder<R>.genVal(
         crossinline f: GenerateFieldValueFunctionDsl<ID_TYPE, R>
