@@ -1,4 +1,4 @@
-package ru.vood.generator.flexibledatamodel
+package ru.vood.generator.flexibledatamodel.dsl
 
 interface DataType<out T> {
 

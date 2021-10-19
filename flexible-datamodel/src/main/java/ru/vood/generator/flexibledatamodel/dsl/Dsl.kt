@@ -1,7 +1,5 @@
 package ru.vood.generator.flexibledatamodel.dsl
 
-import ru.vood.generator.flexibledatamodel.DataType
-import ru.vood.generator.flexibledatamodel.EntityTemplate
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import kotlin.properties.ReadOnlyProperty

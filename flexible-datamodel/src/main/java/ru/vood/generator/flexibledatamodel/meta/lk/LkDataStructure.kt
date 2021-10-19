@@ -2,7 +2,7 @@ package ru.vood.generator.flexibledatamodel.meta.lk
 
 import ru.vood.generator.flexibledatamodel.meta.lkc.LkcDataStructure.standardLkcMeta
 import ru.vood.generator.flexibledatamodel.meta.lkc.LkcDto
-import ru.vood.generator.flexibledatamodel.EntityTemplate
+import ru.vood.generator.flexibledatamodel.dsl.EntityTemplate
 import ru.vood.generator.flexibledatamodel.dsl.*
 import ru.vood.generator.flexibledatamodel.dsl.StandardFunction.dictVal
 import ru.vood.generator.flexibledatamodel.dsl.StandardFunction.genOneEntityData

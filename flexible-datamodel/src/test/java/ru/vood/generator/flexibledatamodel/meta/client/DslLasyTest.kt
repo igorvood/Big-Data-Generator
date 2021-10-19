@@ -6,7 +6,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import ru.vood.generator.flexibledatamodel.EntityTemplate
+import ru.vood.generator.flexibledatamodel.dsl.EntityTemplate
 import ru.vood.generator.flexibledatamodel.dsl.entity
 import ru.vood.generator.flexibledatamodel.dsl.genVal
 import ru.vood.generator.flexibledatamodel.dsl.with

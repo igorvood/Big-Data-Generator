@@ -1,8 +1,5 @@
 package ru.vood.generator.flexibledatamodel.dsl
 
-import ru.vood.generator.flexibledatamodel.DataType
-import ru.vood.generator.flexibledatamodel.EntityTemplate
-
 data class MetaEntity<ID_TYPE>
 //        where T: EntityTemplate<Q>
     (
